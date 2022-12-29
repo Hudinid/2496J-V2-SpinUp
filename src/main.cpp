@@ -71,9 +71,11 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	int flySpeed = 500;
+	int flySpeed = 600;
 	bool toggleFlyWheel = false;
 	bool hitFlyWheelToggle = false;
+	int flywheelSpeeds = 2;
+	int count2 = 0;
 	int count = 0;
 	con.clear();
 
@@ -93,7 +95,77 @@ void opcontrol() {
 
 	//target is 500
 	while (true) {
-		currSpeed = (flywheel.get_actual_velocity() + flywheel2.get_actual_velocity())/2;
+
+		int power = con.get_analog(ANALOG_LEFT_Y); // left joystick y axis is power
+		int valForTurn = con.get_analog(ANALOG_RIGHT_X); // right joystick x axis controls turn
+
+		// double turn = (abs(valForTurn) * valForTurn / 75);
+		double turn = valForTurn; 
+		
+		int left = power + turn; // implement turning
+		int right = power - turn; 
+
+		RF.move(right);
+		RM.move(right);
+		RB.move(right); // hi
+		LF.move(left);
+		LM.move(left);
+		LB.move(left);	
+
+		if(con.get_digital(E_CONTROLLER_DIGITAL_R1)) { // then allow for manual control through R1 and R2
+				INTAKE.move(127);
+		}
+		else if(con.get_digital(E_CONTROLLER_DIGITAL_R2)){
+			INTAKE.move(-127);
+		}
+		else INTAKE.move(0);
+
+		if(con.get_digital(E_CONTROLLER_DIGITAL_L1)) { // toggle the automatic flywheel
+			if(!hitFlyWheelToggle) { 
+				hitFlyWheelToggle = true;
+				toggleFlyWheel = !toggleFlyWheel;
+			}
+		}
+//mm robot yes monke
+		else if(con.get_digital(E_CONTROLLER_DIGITAL_UP)) {
+			if(!hitFlyWheelToggle) {
+				hitFlyWheelToggle = true;
+				flySpeed += 10;
+				if(flySpeed > 600) {
+					flySpeed = 0;
+				}
+			}
+		}
+
+		else if(con.get_digital(E_CONTROLLER_DIGITAL_DOWN)) { 
+			if(!hitFlyWheelToggle) {
+				hitFlyWheelToggle = true;
+				flySpeed -= 10;
+				if(flySpeed < 0) { 
+				    flySpeed = 600;
+				}
+			}
+		}
+
+		else hitFlyWheelToggle = false;
+
+		if(toggleFlyWheel) {
+			F1.move_velocity(-flySpeed);
+			
+			count2 ++;
+			if(count2 % 1000) {
+				con.rumble(".");
+			}
+		} 
+		else {
+			F1.move(0);
+			
+		}
+
+		
+
+
+		/*currSpeed = (flywheel.get_actual_velocity() + flywheel2.get_actual_velocity())/2;
 		prev_error = error;
 		error = target - currSpeed;
 
@@ -168,7 +240,7 @@ void opcontrol() {
 		
 		
 
-		count ++;
+		count ++;*/
 		pros::delay(5);
 	}
 }
