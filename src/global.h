@@ -11,8 +11,6 @@ namespace glb {
     #define P_RF 18
     #define P_RM 20
     #define P_RB 13
-    
-
     #define P_LF 14
     #define P_LM 16
     #define P_LB 15
