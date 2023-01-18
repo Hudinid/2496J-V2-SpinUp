@@ -86,9 +86,10 @@ void opcontrol() {
 	int count = 0;
 	con.clear();
 
-	float kP = 0.7; // 0.5 has a -13 to 1 range
-	float kI = 0.05;
-	float kD = 0.2;
+	float kP = 0.5; // 0.5 has a -13 to 1 range
+	float kI = 0.3; // 0.05
+	float kD = 0.0;
+	float kV = 0.191;
 	float integral = 0;
 	float derivative = 0;
 	
@@ -107,10 +108,11 @@ void opcontrol() {
 
 	//target is 500
 	
-	double actValue = 0;
+	int actValue = 0;
 	int tempSum = 0;
 	list<int>::iterator it;
 	int indice = 0;
+
 	while (true) {
 
 		int power = con.get_analog(ANALOG_LEFT_Y); // left joystick y axis is power
@@ -184,9 +186,6 @@ void opcontrol() {
 		// 	F1.move(0);	
 		// }
 
-		
-
-
 		//getting current speed
 		if(toggleFlyWheel) {
 			currSpeed = (F1.get_actual_velocity());
@@ -223,49 +222,49 @@ void opcontrol() {
 				indice ++;
 			}
 
-			actValue = (double) tempSum / vectorSize;
+			actValue = tempSum;
 
 			prev_error = error;
 
 			error = target - actValue;
 
 			if(abs(error) < 20) { 
-				integral += error;
+				integral += error * 0.01;
 			}
 			else {
 				integral = 0;
 			}
 
-			if(integral < -200) { // cap integral  
-				integral = -200;
-			}
-			else if (integral > 200) {
-				integral = 200;
-			}
-
 			derivative = error - prev_error;
 
-			flyPower = kP*error + kI * integral + kD * derivative + constant;
+			flyPower = kV * target + kP*error + kI * integral + kD * derivative;
 
 			F1.move(flyPower);
-			
 
-			printf("%f\n", actValue);
-			// printf("%d\n", power);
+			indice = 0;
+
+			// printf("%f\n", actValue);
+			// delay(5);			
+
+			// printf("%f\n", actValue);
+			printf("%d\n", flyPower);
 			// printf("%d\n", error);
-			printf("%f\n", integral*kI);
-			printf("%f\n", derivative*kD);
+			// printf("%f\n", integral*kI);
+			// printf("%d\n", tempSum);
 			// printf("%f\n", kP*error);
+		
+			delay(5);
+		// if(count % 50 == 0 && count % 100 != 0 && count % 150 != 0) {
+		// 	con.print(0, 0, "Act. Vel: %f", (currSpeed));
+		// }
+		// if(count % 100 == 0 && count % 150 != 0) {
+		// 	con.print(1, 0, "Curr Volt: %d", flyPower);
+		// }
+		// if(count % 150 == 0) { 
+		// 	con.print(2, 0, "Error: %d", error);
 		}
-
-		if(count % 50 == 0 && count % 100 != 0 && count % 150 != 0) {
-			con.print(0, 0, "Act. Vel: %f", (currSpeed));
-		}
-		if(count % 100 == 0 && count % 150 != 0) {
-			con.print(1, 0, "Curr Volt: %d", flyPower);
-		}
-		if(count % 150 == 0) { 
-			con.print(2, 0, "Error: %d", error);
+		else {
+			F1.move(0);
 		}
 
 
@@ -310,6 +309,6 @@ void opcontrol() {
 
 		count ++;
 		// newCount++;
-		pros::delay(5);
+		pros::delay(10);
 	}
 }

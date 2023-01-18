@@ -24,7 +24,7 @@ namespace glb {
     Motor LM (P_LM, E_MOTOR_GEARSET_06,1);
     Motor LB (P_LB, E_MOTOR_GEARSET_06,1);
     Motor INTAKE (P_INTAKE, E_MOTOR_GEARSET_06);
-    Motor F1 (F_1, E_MOTOR_GEARSET_06);
+    Motor F1 (F_1, E_MOTOR_GEARSET_06, 1);
 
     //Motor flywheel(TEST1, E_MOTOR_GEARSET_06, 1);
     //Motor flywheel2(TEST3,E_MOTOR_GEARSET_06, 1);
