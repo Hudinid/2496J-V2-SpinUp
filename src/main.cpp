@@ -78,38 +78,43 @@ void autonomous() {}
 
  // USE TASKS FOR FLYWHEEL PID
 void opcontrol() {
-	int flySpeed = 600;
+	int flySpeed = 420;
 	bool toggleFlyWheel = false;
 	bool hitFlyWheelToggle = false;
-	int flywheelSpeeds = 2;
+	int flywheelSpeeds = 1;
 	int count2 = 0;
 	int count = 0;
+	int setFSpeed = 0;
+
 	con.clear();
 
-	float kP = 0.5; // 0.5 has a -13 to 1 range
-	float kI = 0.3; // 0.05
+	float kP = 0.7; // 0.5 has a -13 to 1 range
+	float kI = 0.2; // 0.05
 	float kD = 0.0;
-	float kV = 0.191;
+	float kV = 0.18;
 	float integral = 0;
 	float derivative = 0;
 	
 	int target = 500;
+
 	int error = 0;
 	int prev_error = 0;
 
 	int currSpeed = 0;
-	int constant = 106; // 500 / 600 * 127 = 106
+	
 	int flyPower = 0;
 
 	int newCount = 0;
-
+	bool hitToggleFSpeed = false;
 	list<int> values;
-	int vectorSize = 25;
+	int vectorSize = 50;
 
+	float divideSum = 0;
 	//target is 500
 	
-	int actValue = 0;
-	int tempSum = 0;
+	float actValue = 0;
+	float tempSum = 0;
+
 	list<int>::iterator it;
 	int indice = 0;
 
@@ -132,6 +137,9 @@ void opcontrol() {
 		LB.move(left);	
 
 
+		if(count%50 == 0) {
+			con.print(0, 0, "Flywheel Speed: %d", flySpeed);
+		}
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_R1)) { // then allow for manual control through R1 and R2
 				INTAKE.move(127);
@@ -149,86 +157,90 @@ void opcontrol() {
 				toggleFlyWheel = !toggleFlyWheel;
 			}
 		}
-		else hitFlyWheelToggle = false;
+		// else hitFlyWheelToggle = false;
 
 // //mm robot yes monke
-// 		else if(con.get_digital(E_CONTROLLER_DIGITAL_UP)) {
-// 			if(!hitFlyWheelToggle) {
-// 				hitFlyWheelToggle = true;
-// 				flySpeed += 10;
-// 				if(flySpeed > 600) {
-// 					flySpeed = 0;
-// 				}
-// 			}
-// 		}
+		else if(con.get_digital(E_CONTROLLER_DIGITAL_UP)) {
+			if(!hitFlyWheelToggle) {
+				hitFlyWheelToggle = true;
+				flySpeed += 10;
+				if(flySpeed > 600) {
+					flySpeed = 0;
+				}
+			}
+		}
 
-// 		else if(con.get_digital(E_CONTROLLER_DIGITAL_DOWN)) { 
-// 			if(!hitFlyWheelToggle) {
-// 				hitFlyWheelToggle = true;
-// 				flySpeed -= 10;
-// 				if(flySpeed < 0) { 
-// 				    flySpeed = 600;
-// 				}
-// 			}
-// 		}
+		else if(con.get_digital(E_CONTROLLER_DIGITAL_DOWN)) { 
+			if(!hitFlyWheelToggle) {
+				hitFlyWheelToggle = true;
+				flySpeed -= 10;
+				if(flySpeed < 0) { 
+				    flySpeed = 600;
+				}
+			}
+		}
 
-// 		else hitFlyWheelToggle = false;
+		else hitFlyWheelToggle = false;
 
+		if(con.get_digital(E_CONTROLLER_DIGITAL_Y)) {
+			con.rumble(".");
+			if(!hitToggleFSpeed) {
+				hitToggleFSpeed = true;
+				setFSpeed ++;
+				if(setFSpeed >= flywheelSpeeds) { 
+					setFSpeed = 0;
+					flySpeed = 420;
+					
+				}
+			}
+
+		}
+		else hitToggleFSpeed = false;
+
+		// not pid code
 		// if(toggleFlyWheel) {
-		// 	F1.move_velocity(-flySpeed);
+		// 	F1.move_velocity(flySpeed);
 			
 		// 	count2 ++;
 		// 	if(count2 % 1000) {
 		// 		con.rumble(".");
 		// 	}
+			
 		// } 
 		// else {
 		// 	F1.move(0);	
 		// }
 
-		//getting current speed
+
+
+		//pid code
 		if(toggleFlyWheel) {
 			currSpeed = (F1.get_actual_velocity());
 			
-
-			//pushing value to front of the arraylist
-			values.push_front(currSpeed);
+			//pushing value to back of the arraylist
+			values.push_back(currSpeed);
 
 
 			if(values.size() > vectorSize) {
-				values.pop_back();
+				values.pop_front();
 			}
 
 			for(it = values.begin(); it != values.end(); it++){
-				//*it to access values
-				if(indice == 0) {
-					tempSum += *it * 0.20;
-				}
-				else if(indice == 1) {
-					tempSum += *it * 0.15;
-				}
-				else if(indice == 2) {
-					tempSum += *it * 0.125;
-				}
-				else if(indice == 3) {	
-					tempSum += *it * 0.1;
-				}
-				else if(indice == 4) {
-					tempSum += *it * 0.05;
-				}
-				else {
-					tempSum += *it * 0.01875;
-				}
-				indice ++;
+				float multiplier = 0.01 * indice*indice;
+
+				tempSum += (multiplier * *it);
+				divideSum += multiplier;
+
+				indice++;
 			}
 
-			actValue = tempSum;
+			actValue = tempSum / divideSum;
 
 			prev_error = error;
 
 			error = target - actValue;
 
-			if(abs(error) < 20) { 
+			if(abs(error) < 25) { 
 				integral += error * 0.01;
 			}
 			else {
@@ -241,74 +253,32 @@ void opcontrol() {
 
 			F1.move(flyPower);
 
-			indice = 0;
-
 			// printf("%f\n", actValue);
 			// delay(5);			
 
-			// printf("%f\n", actValue);
+			printf("%f\n", actValue);
 			printf("%d\n", flyPower);
-			// printf("%d\n", error);
-			// printf("%f\n", integral*kI);
-			// printf("%d\n", tempSum);
-			// printf("%f\n", kP*error);
+			printf("%d\n", error);
+			printf("%f\n", tempSum);
+			printf("%f\n", kI*integral);
+			printf("%f\n", kP*error);
+			
 		
+			
+			indice = 1;
+			tempSum = 0;
+			divideSum = 0;
+
 			delay(5);
-		// if(count % 50 == 0 && count % 100 != 0 && count % 150 != 0) {
-		// 	con.print(0, 0, "Act. Vel: %f", (currSpeed));
-		// }
-		// if(count % 100 == 0 && count % 150 != 0) {
-		// 	con.print(1, 0, "Curr Volt: %d", flyPower);
-		// }
-		// if(count % 150 == 0) { 
-		// 	con.print(2, 0, "Error: %d", error);
+
 		}
 		else {
 			F1.move(0);
-		}
-
-
-// 		if(con.get_digital(E_CONTROLLER_DIGITAL_L1)) { // toggle the automatic flywheel
-// 			if(!hitFlyWheelToggle) { 
-// 				hitFlyWheelToggle = true;
-// 				toggleFlyWheel = !toggleFlyWheel;
-// 			}
-// 		}
-// //mm robot yes monke
-// 		else if(con.get_digital(E_CONTROLLER_DIGITAL_UP)) {
-// 			if(!hitFlyWheelToggle) {
-// 				hitFlyWheelToggle = true;
-// 				flySpeed += 10;
-// 				if(flySpeed > 600) {
-// 					flySpeed = 0;
-// 				}
-// 			}
-// 		}
-
-// 		else if(con.get_digital(E_CONTROLLER_DIGITAL_DOWN)) { 
-// 			if(!hitFlyWheelToggle) {
-// 				hitFlyWheelToggle = true;
-// 				flySpeed -= 10;
-// 				if(flySpeed < 0) { 
-// 				    flySpeed = 600;
-// 				}
-// 			}
-// 		}
-// 		else hitFlyWheelToggle = false;
-
-// 		if(toggleFlyWheel) {
-// 			flywheel.move(127);
-// 			flywheel2.move(127);
-			
-// 		} 
-// 		else {
-// 			flywheel.move(0);
-// 			flywheel2.move(0);
-// 		}
-
+		}	
+			// delay(5);
 
 		count ++;
-		// newCount++;
+		newCount++;
 		pros::delay(10);
 	}
 }

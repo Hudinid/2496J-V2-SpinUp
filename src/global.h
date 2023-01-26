@@ -9,12 +9,12 @@ namespace glb {
     //#define TEST2 2
     #define F_1 17
     #define P_RF 18
-    #define P_RM 20
+    #define P_RM 11
     #define P_RB 13
     #define P_LF 14
     #define P_LM 16
-    #define P_LB 15
-    #define P_INTAKE 12
+    #define P_LB 12
+    #define P_INTAKE 19
     
 
     Motor RF (P_RF, E_MOTOR_GEARSET_06);
