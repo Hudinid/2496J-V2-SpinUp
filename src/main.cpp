@@ -85,17 +85,21 @@ void opcontrol() {
 	int count2 = 0;
 	int count = 0;
 	int setFSpeed = 0;
+	bool PIntakeActive = false;
+	bool PIntakeButton = false;
+	bool PAnglerActive = false;
+	bool PAnglerButton = false;
 
 	con.clear();
 
-	float kP = 0.7; // 0.5 has a -13 to 1 range
-	float kI = 0.2; // 0.05
+	float kP = 1.3; // 0.5 has a -13 to 1 range // 0.75
+	float kI = 0.22; // 0.05
 	float kD = 0.0;
-	float kV = 0.18;
+	float kV = 0.2;
 	float integral = 0;
 	float derivative = 0;
 	
-	int target = 500;
+	int target = 420;
 
 	int error = 0;
 	int prev_error = 0;
@@ -123,6 +127,8 @@ void opcontrol() {
 		int power = con.get_analog(ANALOG_LEFT_Y); // left joystick y axis is power
 		int valForTurn = con.get_analog(ANALOG_RIGHT_X); // right joystick x axis controls turn
 
+		power = 0;
+		valForTurn = 0;
 		// double turn = (abs(valForTurn) * valForTurn / 75);
 		double turn = valForTurn; 
 		
@@ -184,6 +190,7 @@ void opcontrol() {
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_Y)) {
 			con.rumble(".");
+			
 			if(!hitToggleFSpeed) {
 				hitToggleFSpeed = true;
 				setFSpeed ++;
@@ -197,7 +204,37 @@ void opcontrol() {
 		}
 		else hitToggleFSpeed = false;
 
+		if(con.get_digital(E_CONTROLLER_DIGITAL_B)) {
+			if(!PIntakeButton) {
+				PIntakeButton = true;
+				if(PIntakeActive) {
+					PIntakeActive = !PIntakeActive;
+					intakePiston.set_value(false);
+				}
+				else {
+					PIntakeActive = !PIntakeActive;
+					intakePiston.set_value(true);
+				}
+			}
+		}
+		else PIntakeButton = false;
 		// not pid code
+
+		if(con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
+			if(!PAnglerButton) {
+				PAnglerButton = true;
+				if(PAnglerActive) {
+					PAnglerActive = !PAnglerActive;
+					anglerPiston.set_value(false);
+				}
+				else {
+					PAnglerActive = !PAnglerActive;
+					anglerPiston.set_value(true);
+				}
+			}
+		}
+		else PAnglerButton = false;
+	
 		// if(toggleFlyWheel) {
 		// 	F1.move_velocity(flySpeed);
 			

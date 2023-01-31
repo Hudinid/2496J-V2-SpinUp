@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/adi.hpp"
 using namespace pros;
 #ifndef _GLOBALS_
 #define _GLOBALS_
@@ -15,6 +16,9 @@ namespace glb {
     #define P_LM 16
     #define P_LB 12
     #define P_INTAKE 19
+    #define P_INTAKEPISTON 'A'
+    #define P_ANGLERPISTON 'B'
+    #define P_AUTONSELECTOR 'C'
     
 
     Motor RF (P_RF, E_MOTOR_GEARSET_06);
@@ -25,6 +29,9 @@ namespace glb {
     Motor LB (P_LB, E_MOTOR_GEARSET_06,1);
     Motor INTAKE (P_INTAKE, E_MOTOR_GEARSET_06);
     Motor F1 (F_1, E_MOTOR_GEARSET_06, 1);
+    ADIDigitalOut intakePiston(P_INTAKEPISTON);
+    ADIDigitalOut anglerPiston(P_ANGLERPISTON);
+    ADIDigitalIn autonSelector(P_AUTONSELECTOR);
 
     //Motor flywheel(TEST1, E_MOTOR_GEARSET_06, 1);
     //Motor flywheel2(TEST3,E_MOTOR_GEARSET_06, 1);
