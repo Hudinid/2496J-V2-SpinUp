@@ -16,9 +16,11 @@ namespace glb {
     #define P_LM 16
     #define P_LB 12
     #define P_INTAKE 19
+    #define P_IMU 15
     #define P_INTAKEPISTON 'A'
     #define P_ANGLERPISTON 'B'
     #define P_AUTONSELECTOR 'C'
+    
     
 
     Motor RF (P_RF, E_MOTOR_GEARSET_06);
@@ -39,6 +41,7 @@ namespace glb {
 
     Controller con (E_CONTROLLER_MASTER);
 
+    Imu imu (P_IMU);
     
 }
 #endif

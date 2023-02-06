@@ -107,6 +107,7 @@ void opcontrol() {
 	int currSpeed = 0;
 	
 	int flyPower = 0;
+	int tempSpeed = 420;
 
 	int newCount = 0;
 	bool hitToggleFSpeed = false;
@@ -147,14 +148,74 @@ void opcontrol() {
 			con.print(0, 0, "Flywheel Speed: %d", flySpeed);
 		}
 
+		if(toggleFlyWheel && con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+			F1.move_velocity(600);
+			
+			count2 ++;
+			if(count2 % 1000) {
+				con.rumble(".");
+			}
+			
+		} 
+		else if(toggleFlyWheel) {
+			currSpeed = (F1.get_actual_velocity());
+			values.push_back(currSpeed);
+
+			if(values.size() > vectorSize) {
+				values.pop_front();
+			}
+
+			for(it = values.begin(); it != values.end(); it++){
+				float multiplier = 0.01 * indice*indice;
+
+				tempSum += (multiplier * *it);
+				divideSum += multiplier;
+
+				indice++;
+			}
+
+			actValue = tempSum / divideSum;
+
+			prev_error = error;
+
+			error = target - actValue;
+
+			if(abs(error) < 25) { 
+				integral += error * 0.01;
+			}
+			else {
+				integral = 0;
+			}
+
+			derivative = error - prev_error;
+
+			flyPower = kV * target + kP*error + kI * integral + kD * derivative;
+
+			F1.move(flyPower);
+					
+			indice = 1;
+			tempSum = 0;
+			divideSum = 0;
+
+			count2 ++;
+			if(count2 % 1000) {
+				con.rumble(".");
+			}
+
+			delay(5);
+		}
+		else F1.move(0);
+
+
 		if(con.get_digital(E_CONTROLLER_DIGITAL_R1)) { // then allow for manual control through R1 and R2
 				INTAKE.move(127);
 		}
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_R2)){
 			INTAKE.move(-127);
 		}
-		else INTAKE.move(0);
-
+		else {
+			INTAKE.move(0);
+		}
 
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_L1)) { // toggle the automatic flywheel
@@ -235,83 +296,71 @@ void opcontrol() {
 		}
 		else PAnglerButton = false;
 	
-		// if(toggleFlyWheel) {
-		// 	F1.move_velocity(flySpeed);
-			
-		// 	count2 ++;
-		// 	if(count2 % 1000) {
-		// 		con.rumble(".");
-		// 	}
-			
-		// } 
-		// else {
-		// 	F1.move(0);	
-		// }
-
+		
 
 
 		//pid code
-		if(toggleFlyWheel) {
-			currSpeed = (F1.get_actual_velocity());
+		// if(toggleFlyWheel) {
+		// 	currSpeed = (F1.get_actual_velocity());
 			
-			//pushing value to back of the arraylist
-			values.push_back(currSpeed);
+		// 	//pushing value to back of the arraylist
+		// 	values.push_back(currSpeed);
 
 
-			if(values.size() > vectorSize) {
-				values.pop_front();
-			}
+		// 	if(values.size() > vectorSize) {
+		// 		values.pop_front();
+		// 	}
 
-			for(it = values.begin(); it != values.end(); it++){
-				float multiplier = 0.01 * indice*indice;
+		// 	for(it = values.begin(); it != values.end(); it++){
+		// 		float multiplier = 0.01 * indice*indice;
 
-				tempSum += (multiplier * *it);
-				divideSum += multiplier;
+		// 		tempSum += (multiplier * *it);
+		// 		divideSum += multiplier;
 
-				indice++;
-			}
+		// 		indice++;
+		// 	}
 
-			actValue = tempSum / divideSum;
+		// 	actValue = tempSum / divideSum;
 
-			prev_error = error;
+		// 	prev_error = error;
 
-			error = target - actValue;
+		// 	error = target - actValue;
 
-			if(abs(error) < 25) { 
-				integral += error * 0.01;
-			}
-			else {
-				integral = 0;
-			}
+		// 	if(abs(error) < 25) { 
+		// 		integral += error * 0.01;
+		// 	}
+		// 	else {
+		// 		integral = 0;
+		// 	}
 
-			derivative = error - prev_error;
+		// 	derivative = error - prev_error;
 
-			flyPower = kV * target + kP*error + kI * integral + kD * derivative;
+		// 	flyPower = kV * target + kP*error + kI * integral + kD * derivative;
 
-			F1.move(flyPower);
+		// 	F1.move(flyPower);
 
-			// printf("%f\n", actValue);
-			// delay(5);			
+		// 	// printf("%f\n", actValue);
+		// 	// delay(5);			
 
-			printf("%f\n", actValue);
-			printf("%d\n", flyPower);
-			printf("%d\n", error);
-			printf("%f\n", tempSum);
-			printf("%f\n", kI*integral);
-			printf("%f\n", kP*error);
+		// 	printf("%f\n", actValue);
+		// 	printf("%d\n", flyPower);
+		// 	printf("%d\n", error);
+		// 	printf("%f\n", tempSum);
+		// 	printf("%f\n", kI*integral);
+		// 	printf("%f\n", kP*error);
 			
 		
 			
-			indice = 1;
-			tempSum = 0;
-			divideSum = 0;
+		// 	indice = 1;
+		// 	tempSum = 0;
+		// 	divideSum = 0;
 
-			delay(5);
+		// 	delay(5);
 
-		}
-		else {
-			F1.move(0);
-		}	
+		// }
+		// else {
+		// 	F1.move(0);
+		// }	
 			// delay(5);
 
 		count ++;
