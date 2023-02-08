@@ -1,5 +1,6 @@
 #include "main.h"
 #include "pros/adi.hpp"
+#include "pros/optical.hpp"
 using namespace pros;
 #ifndef _GLOBALS_
 #define _GLOBALS_
@@ -17,6 +18,7 @@ namespace glb {
     #define P_LB 12
     #define P_INTAKE 19
     #define P_IMU 15
+    #define P_OPTICAL 21
     #define P_INTAKEPISTON 'A'
     #define P_ANGLERPISTON 'B'
     #define P_AUTONSELECTOR 'C'
@@ -42,6 +44,8 @@ namespace glb {
     Controller con (E_CONTROLLER_MASTER);
 
     Imu imu (P_IMU);
+
+    Optical optical(P_OPTICAL);
     
 }
 #endif

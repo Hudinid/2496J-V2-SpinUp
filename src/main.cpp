@@ -99,7 +99,7 @@ void opcontrol() {
 	float integral = 0;
 	float derivative = 0;
 	
-	int target = 420;
+	int target = 440;
 
 	int error = 0;
 	int prev_error = 0;
@@ -128,8 +128,7 @@ void opcontrol() {
 		int power = con.get_analog(ANALOG_LEFT_Y); // left joystick y axis is power
 		int valForTurn = con.get_analog(ANALOG_RIGHT_X); // right joystick x axis controls turn
 
-		power = 0;
-		valForTurn = 0;
+
 		// double turn = (abs(valForTurn) * valForTurn / 75);
 		double turn = valForTurn; 
 		
@@ -145,7 +144,7 @@ void opcontrol() {
 
 
 		if(count%50 == 0) {
-			con.print(0, 0, "Flywheel Speed: %d", flySpeed);
+			con.print(0, 0, "Flywheel Speed: %d", target);
 		}
 
 		if(toggleFlyWheel && con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
@@ -230,9 +229,9 @@ void opcontrol() {
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_UP)) {
 			if(!hitFlyWheelToggle) {
 				hitFlyWheelToggle = true;
-				flySpeed += 10;
-				if(flySpeed > 600) {
-					flySpeed = 0;
+				target += 10;
+				if(target > 600) {
+					target = 0;
 				}
 			}
 		}
@@ -240,9 +239,9 @@ void opcontrol() {
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_DOWN)) { 
 			if(!hitFlyWheelToggle) {
 				hitFlyWheelToggle = true;
-				flySpeed -= 10;
-				if(flySpeed < 0) { 
-				    flySpeed = 600;
+				target -= 10;
+				if(target < 0) { 
+				    target = 600;
 				}
 			}
 		}
@@ -257,7 +256,7 @@ void opcontrol() {
 				setFSpeed ++;
 				if(setFSpeed >= flywheelSpeeds) { 
 					setFSpeed = 0;
-					flySpeed = 420;
+					target = 420;
 					
 				}
 			}
