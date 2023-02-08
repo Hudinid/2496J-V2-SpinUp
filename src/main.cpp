@@ -157,6 +157,10 @@ void opcontrol() {
 			
 		} 
 		else if(toggleFlyWheel) {
+			count2 ++;
+			if(count2 % 1000) {
+				con.rumble(".");
+			}
 			currSpeed = (F1.get_actual_velocity());
 			values.push_back(currSpeed);
 
