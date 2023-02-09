@@ -305,7 +305,7 @@ void straightDrive(int target) {
     target *= 28.65;
     double dKP = 0.6;
     double dKI = 0.01;
-    double dKD = 0.1;
+    double dKD = 2.4;
     int dIntegral = 0;
     int dDerivative = 0;
     int dError = 0;
