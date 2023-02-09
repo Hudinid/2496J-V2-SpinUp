@@ -302,10 +302,10 @@ void pidturn (float target){
 
 void straightDrive(int target) {
     reset_encoders();
-    target *= 29.;
+    target *= 28.65;
     double dKP = 0.6;
     double dKI = 0.01;
-    double dKD = 0.0;
+    double dKD = 0.1;
     int dIntegral = 0;
     int dDerivative = 0;
     int dError = 0;
