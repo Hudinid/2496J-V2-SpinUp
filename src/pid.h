@@ -302,7 +302,7 @@ void pidturn (float target){
 
 void straightDrive(int target) {
     reset_encoders();
-    target *= 28.65;
+    target *= 29.;
     double dKP = 0.6;
     double dKI = 0.01;
     double dKD = 0.0;
@@ -312,7 +312,7 @@ void straightDrive(int target) {
     int dPrev_Error = 0;
     int dPower = 0;
     int powerAdj = 5;
-    double powerAdjConstant = 11;
+    double powerAdjConstant = 5;
     int currentPos = (LF.get_position() + LM.get_position() + LB.get_position() + RF.get_position() + RM.get_position() + RB.get_position()) / 6;
     int count = 0;
     int timeout = 0;
@@ -331,6 +331,7 @@ void straightDrive(int target) {
 
         dDerivative = dError - dPrev_Error;
         dPrev_Error = dError;
+
         dPower = dKP * dError + dIntegral * dKI + dDerivative * dKD;
 
         if(power < 0) {
@@ -341,8 +342,10 @@ void straightDrive(int target) {
         }
         powerAdj = (imu.get_heading() - 90) * powerAdjConstant;
 
-        LF.move(power-powerAdj); LM.move(power-powerAdj); LB.move(power-powerAdj); 
-        RF.move(power+powerAdj); RM.move(power+powerAdj); RB.move(power+powerAdj);
+
+        chas_move(dPower - powerAdj, dPower + powerAdj);
+        // LF.move(power-powerAdj); LM.move(power-powerAdj); LB.move(power-powerAdj); 
+        // RF.move(power+powerAdj); RM.move(power+powerAdj); RB.move(power+powerAdj);
 
 
 

@@ -65,7 +65,7 @@ void autonomous() {
 	while(imu.is_calibrating()) delay(5);
 
 	// pidturn(180);
-	straightDrive(200);
+	straightDrive(100);
 }
 
 /**
