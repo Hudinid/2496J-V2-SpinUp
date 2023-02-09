@@ -60,7 +60,13 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	imu.reset();
+	while(imu.is_calibrating()) delay(5);
+
+	// pidturn(180);
+	straightDrive(200);
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -99,7 +105,7 @@ void opcontrol() {
 	float integral = 0;
 	float derivative = 0;
 	
-	int target = 440;
+	int target = 470;
 
 	int error = 0;
 	int prev_error = 0;
@@ -107,7 +113,7 @@ void opcontrol() {
 	int currSpeed = 0;
 	
 	int flyPower = 0;
-	int tempSpeed = 420;
+	
 
 	int newCount = 0;
 	bool hitToggleFSpeed = false;

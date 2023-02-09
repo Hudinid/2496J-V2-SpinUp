@@ -17,7 +17,7 @@ namespace glb {
     #define P_LM 16
     #define P_LB 12
     #define P_INTAKE 19
-    #define P_IMU 15
+    #define P_IMU 9
     #define P_OPTICAL 21
     #define P_INTAKEPISTON 'A'
     #define P_ANGLERPISTON 'B'

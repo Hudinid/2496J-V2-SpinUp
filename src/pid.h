@@ -34,9 +34,9 @@ int moveCount = 0;
 #define INTEGRAL_KI 5
 #define MAX_INTEGRAL 20
 #define COUNT_CONST 50
-#define TURN_KP 12 // 9.9 // 2
+#define TURN_KP 9.75 // 9.9 // 2
 #define TURN_KI 1 // 0.1 // 0.1
-#define TURN_KD 24  // 35 // 20
+#define TURN_KD 84 // 35 // 20
 #define MAXTIME 300
 #define MINSPEED 0
 
@@ -247,6 +247,7 @@ void pidmove (int target) {
     // linear[moveCount].store(target, stored_runtime);
     chas_move(0,0);
 }
+
 void pidturn (float target){
     setValues(TURN_KP,TURN_KI,TURN_KD);
     // switch(turnType) {
@@ -289,8 +290,7 @@ void pidturn (float target){
             con.clear();
         } else if (runtime_count % 10 == 0) {
             con.print(0,0,"Header: %f", imu.get_rotation());
-            con.print(1,0,"Kp:%f, Ki:%f", TURN_KP, TURN_KI);
-            con.print(2,0,"Kd:%f", TURN_KD);
+            
         }
         runtime_count++;
         pros::delay(10);
@@ -300,7 +300,62 @@ void pidturn (float target){
 }
 
 
+void straightDrive(int target) {
+    reset_encoders();
+    target *= 28.65;
+    double dKP = 0.6;
+    double dKI = 0.01;
+    double dKD = 0.0;
+    int dIntegral = 0;
+    int dDerivative = 0;
+    int dError = 0;
+    int dPrev_Error = 0;
+    int dPower = 0;
+    int powerAdj = 5;
+    double powerAdjConstant = 11;
+    int currentPos = (LF.get_position() + LM.get_position() + LB.get_position() + RF.get_position() + RM.get_position() + RB.get_position()) / 6;
+    int count = 0;
+    int timeout = 0;
+    
 
+    imu.set_heading(90);
+
+
+    while (true) {
+        currentPos = (LF.get_position() + LM.get_position() + LB.get_position() + RF.get_position() + RM.get_position() + RB.get_position()) / 6;
+        
+        dError = target-currentPos;
+        if(abs(dError) < 1000) {
+            dIntegral += dError;        
+        }
+
+        dDerivative = dError - dPrev_Error;
+        dPrev_Error = dError;
+        dPower = dKP * dError + dIntegral * dKI + dDerivative * dKD;
+
+        if(power < 0) {
+            dPower = min(dPower, -127);
+        }
+        else {
+            dPower = min(dPower, 127);
+        }
+        powerAdj = (imu.get_heading() - 90) * powerAdjConstant;
+
+        LF.move(power-powerAdj); LM.move(power-powerAdj); LB.move(power-powerAdj); 
+        RF.move(power+powerAdj); RM.move(power+powerAdj); RB.move(power+powerAdj);
+
+
+
+        if (abs(target-currentPos) <= 150) count++;
+        if (count >= COUNT_CONST) break; //|| runtime_count >= MAX_RUNTIME
+
+        if (abs(target-currentPos) <= 300) timeout++;
+        if(timeout >= MAXTIME) break;
+
+        delay(10);
+    }
+
+}
 
 
 
