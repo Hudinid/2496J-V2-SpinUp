@@ -66,6 +66,7 @@ void autonomous() {
 
 	// pidturn(180);
 	straightDrive(75);
+	// pidmove(2000);
 }
 
 /**
@@ -136,7 +137,9 @@ void opcontrol() {
 
 
 		// double turn = (abs(valForTurn) * valForTurn / 75);
-		double turn = valForTurn; 
+		double turn = (3000*valForTurn + 0.2*pow(valForTurn, 3)); 
+		turn /= 4000;
+		// double turn = valForTurn; 
 		
 		int left = power + turn; // implement turning
 		int right = power - turn; 
@@ -217,7 +220,7 @@ void opcontrol() {
 
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_R1)) { // then allow for manual control through R1 and R2
-				INTAKE.move(127);
+			INTAKE.move(127);
 		}
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_R2)){
 			INTAKE.move(-127);
@@ -227,13 +230,16 @@ void opcontrol() {
 		}
 
 
+		
+		
+		
 		if(con.get_digital(E_CONTROLLER_DIGITAL_L1)) { // toggle the automatic flywheel
 			if(!hitFlyWheelToggle) { 
 				hitFlyWheelToggle = true;
 				toggleFlyWheel = !toggleFlyWheel;
 			}
 		}
-		// else hitFlyWheelToggle = false;
+		
 
 // //mm robot yes monke
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_UP)) {
@@ -255,23 +261,23 @@ void opcontrol() {
 				}
 			}
 		}
-
 		else hitFlyWheelToggle = false;
+		
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_Y)) {
 			con.rumble(".");
-			
-			if(!hitToggleFSpeed) {
-				hitToggleFSpeed = true;
-				setFSpeed ++;
-				if(setFSpeed >= flywheelSpeeds) { 
-					setFSpeed = 0;
-					target = 420;
-					
-				}
-			}
-
+			target = 100;
 		}
+		else if(con.get_digital(E_CONTROLLER_DIGITAL_X)) {
+			con.rumble(".");
+			target = 200;
+		}
+		else if(con.get_digital(E_CONTROLLER_DIGITAL_A)) {
+			con.rumble(".");
+			target = 300;
+		}
+		
+		
 		else hitToggleFSpeed = false;
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_B)) {
@@ -293,6 +299,7 @@ void opcontrol() {
 		if(con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
 			if(!PAnglerButton) {
 				PAnglerButton = true;
+				target = 100;
 				if(PAnglerActive) {
 					PAnglerActive = !PAnglerActive;
 					anglerPiston.set_value(false);
@@ -304,73 +311,7 @@ void opcontrol() {
 			}
 		}
 		else PAnglerButton = false;
-	
 		
-
-
-		//pid code
-		// if(toggleFlyWheel) {
-		// 	currSpeed = (F1.get_actual_velocity());
-			
-		// 	//pushing value to back of the arraylist
-		// 	values.push_back(currSpeed);
-
-
-		// 	if(values.size() > vectorSize) {
-		// 		values.pop_front();
-		// 	}
-
-		// 	for(it = values.begin(); it != values.end(); it++){
-		// 		float multiplier = 0.01 * indice*indice;
-
-		// 		tempSum += (multiplier * *it);
-		// 		divideSum += multiplier;
-
-		// 		indice++;
-		// 	}
-
-		// 	actValue = tempSum / divideSum;
-
-		// 	prev_error = error;
-
-		// 	error = target - actValue;
-
-		// 	if(abs(error) < 25) { 
-		// 		integral += error * 0.01;
-		// 	}
-		// 	else {
-		// 		integral = 0;
-		// 	}
-
-		// 	derivative = error - prev_error;
-
-		// 	flyPower = kV * target + kP*error + kI * integral + kD * derivative;
-
-		// 	F1.move(flyPower);
-
-		// 	// printf("%f\n", actValue);
-		// 	// delay(5);			
-
-		// 	printf("%f\n", actValue);
-		// 	printf("%d\n", flyPower);
-		// 	printf("%d\n", error);
-		// 	printf("%f\n", tempSum);
-		// 	printf("%f\n", kI*integral);
-		// 	printf("%f\n", kP*error);
-			
-		
-			
-		// 	indice = 1;
-		// 	tempSum = 0;
-		// 	divideSum = 0;
-
-		// 	delay(5);
-
-		// }
-		// else {
-		// 	F1.move(0);
-		// }	
-			// delay(5);
 
 		count ++;
 		newCount++;

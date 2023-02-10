@@ -303,19 +303,26 @@ void pidturn (float target){
 void straightDrive(int target) {
     reset_encoders();
     target *= 28.65;
-    double dKP = 0.6;
-    double dKI = 0.01;
-    double dKD = 2.4;
+    double dKP = 1;
+    double dKI = 0.001;
+    double dKD = 0.075;
+
+    double tI = 58;
+
+    double adjust = 0;
+    double tError = 0;
+    double tIntegral = 0;
     int dIntegral = 0;
     int dDerivative = 0;
     int dError = 0;
     int dPrev_Error = 0;
     int dPower = 0;
     int powerAdj = 5;
-    double powerAdjConstant = 5;
+    double powerAdjConstant = 33.525;
     int currentPos = (LF.get_position() + LM.get_position() + LB.get_position() + RF.get_position() + RM.get_position() + RB.get_position()) / 6;
     int count = 0;
     int timeout = 0;
+    double limiter = 0.01;
     
 
     imu.set_heading(90);
@@ -323,13 +330,14 @@ void straightDrive(int target) {
 
     while (true) {
         currentPos = (LF.get_position() + LM.get_position() + LB.get_position() + RF.get_position() + RM.get_position() + RB.get_position()) / 6;
+        limiter += 0.05;
         
         dError = target-currentPos;
-        if(abs(dError) < 1000) {
+        if(abs(dError) < 750) {
             dIntegral += dError;        
         }
 
-        dDerivative = dError - dPrev_Error;
+        dDerivative = (dError - dPrev_Error) * 100;
         dPrev_Error = dError;
 
         dPower = dKP * dError + dIntegral * dKI + dDerivative * dKD;
@@ -340,15 +348,21 @@ void straightDrive(int target) {
         else {
             dPower = min(dPower, 127);
         }
-        powerAdj = (imu.get_heading() - 90) * powerAdjConstant;
 
+        tError = imu.get_heading() - 90;
+        tIntegral += tError / 100; 
+        dPower *= limiter;
+        // powerAdj = (imu.get_heading() - 90) * powerAdjConstant;
+        powerAdj = abs(dPower) / 80.0 * tIntegral * tI;
 
         chas_move(dPower - powerAdj, dPower + powerAdj);
         // LF.move(power-powerAdj); LM.move(power-powerAdj); LB.move(power-powerAdj); 
         // RF.move(power+powerAdj); RM.move(power+powerAdj); RB.move(power+powerAdj);
 
 
-
+        if(limiter >= 1) {
+            limiter = 1;
+        }
         if (abs(target-currentPos) <= 150) count++;
         if (count >= COUNT_CONST) break; //|| runtime_count >= MAX_RUNTIME
 
@@ -357,7 +371,7 @@ void straightDrive(int target) {
 
         delay(10);
     }
-
+    chas_move(0,0);
 }
 
 
