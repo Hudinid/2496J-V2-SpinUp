@@ -19,6 +19,7 @@ namespace glb {
     #define P_INTAKE 19
     #define P_IMU 9
     #define P_OPTICAL 21
+    #define P_OPTICAL2 20
     #define P_INTAKEPISTON 'A'
     #define P_ANGLERPISTON 'B'
     #define P_AUTONSELECTOR 'C'
@@ -46,6 +47,7 @@ namespace glb {
     Imu imu (P_IMU);
 
     Optical optical(P_OPTICAL);
+    Optical optical2(P_OPTICAL2);
     
 }
 #endif

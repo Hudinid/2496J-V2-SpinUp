@@ -43,10 +43,15 @@ int moveCount = 0;
 
 
 void spinToBlue() {
-    double hue = optical.get_hue(); 
+    double hue = optical.get_hue();
+    double hue2 = optical2.get_hue(); 
     optical.set_led_pwm(25);
-    while(hue < 80 || hue > 220) {
+    optical2.set_led_pwm(25);
+
+    while(hue < 80 || hue > 220 && hue2 < 80 || hue2 > 220) {
         hue = optical.get_hue();
+        hue2 = optical.get_hue();
+
         INTAKE.move(55);
         delay(5);
     }
@@ -57,9 +62,14 @@ void spinToBlue() {
 void spinToRed() {
     
     double hue = optical.get_hue(); 
+    double hue2 = optical2.get_hue();
     optical.set_led_pwm(25);
-    while(hue > 70) {
+    optical2.set_led_pwm(25);
+
+    while(hue > 70 && hue2 > 70) {
         hue = optical.get_hue();
+        hue2 = optical.get_hue();
+
         INTAKE.move(55);
         delay(5);
     }
@@ -374,6 +384,13 @@ void straightDrive(int target) {
     chas_move(0,0);
 }
 
+void redAutonLeft() {
+    Task spinFlywheel(510);
+
+    straightDrive(-5);
+    spinToRed();
+    
+}
 
 
 

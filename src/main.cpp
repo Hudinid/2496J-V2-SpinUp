@@ -157,7 +157,7 @@ void opcontrol() {
 		}
 
 		if(toggleFlyWheel && con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-			F1.move_velocity(600);
+			F1.move(600);
 			
 			count2 ++;
 			if(count2 % 1000) {
@@ -266,15 +266,15 @@ void opcontrol() {
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_Y)) {
 			con.rumble(".");
-			target = 100;
+			target = 420;
 		}
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_X)) {
 			con.rumble(".");
-			target = 200;
+			target = 470;
 		}
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_A)) {
 			con.rumble(".");
-			target = 300;
+			target = 510;
 		}
 		
 		
