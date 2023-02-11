@@ -299,7 +299,6 @@ void opcontrol() {
 		if(con.get_digital(E_CONTROLLER_DIGITAL_L2)) {
 			if(!PAnglerButton) {
 				PAnglerButton = true;
-				target = 100;
 				if(PAnglerActive) {
 					PAnglerActive = !PAnglerActive;
 					anglerPiston.set_value(false);
