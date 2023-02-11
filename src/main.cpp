@@ -150,10 +150,10 @@ void opcontrol() {
 		// double turn = valForTurn; 
 		
 		int left = power + turn; // implement turning
-		int right = power - turn; // anabel was here
+		int right = power - turn; 
 
 		RF.move(right);
-		RM.move(right); // anabel was here2
+		RM.move(right); //hii
 		RB.move(right); // hi
 		LF.move(left);
 		LM.move(left);
