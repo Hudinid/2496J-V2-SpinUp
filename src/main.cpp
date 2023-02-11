@@ -142,7 +142,7 @@ void opcontrol() {
 		// double turn = valForTurn; 
 		
 		int left = power + turn; // implement turning
-		int right = power - turn; 
+		int right = power - turn; // anabel was here
 
 		RF.move(right);
 		RM.move(right);
