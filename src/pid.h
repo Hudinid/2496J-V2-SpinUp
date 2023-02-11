@@ -1,5 +1,6 @@
 #include "main.h"
 #include "global.h"
+#include "pros/rtos.h"
 #include <chrono>
 #include <cmath>
 #include <list>
@@ -19,6 +20,8 @@ float integral = 0;
 float error = 0;
 float prev_error = 0;
 float prev_derivative;
+int tTarget = 480;
+
 int stored_error; //global
 int stored_target; //global
 int stored_enc_avg; //global
@@ -27,6 +30,9 @@ int stored_min_max[20]; //global
 int stored_time[20]; //global
 int stored_imu;
 int moveCount = 0;
+bool intakeP = false;
+bool flywheelP = false;
+
 
 #define STRAIGHT_KP 6
 #define STRAIGHT_KI 1
@@ -384,12 +390,142 @@ void straightDrive(int target) {
     chas_move(0,0);
 }
 
-void skills() {
-    Task spinFlywheel(510);
+void toggleIntakePiston() {
+    if(intakeP) { 
+        intakeP = !intakeP;
+        intakePiston.set_value(false);
+    }
+    else {
+        intakeP = !intakeP;
+        intakePiston.set_value(true);
+    }
+}
 
-    straightDrive(-5);
-    spinToRed();
+void toggleFlywheelPiston() {
+    if(flywheelP) {
+        flywheelP = !flywheelP;
+        anglerPiston.set_value(false);
+    }
+    else {
+        flywheelP = !flywheelP;
+        anglerPiston.set_value(true);
+    }
+}
+
+void toggleExpansion() {
+    expansion.set_value(true);
+}
+
+void fireFlywheel(int rep) {
+    for(int i = 0; i < rep; i ++) {
+        moveIntake(-127);
+        delay(500);
+        moveIntake(0);
+    }
+}
+
+
+void taskFlywheel() {
+    float wkP = 1.3; // 0.5 has a -13 to 1 range // 0.75
+    float wkI = 0.22; // 0.05
+    float wkD = 0.0;
+    float wkV = 0.2;
+    float wIntegral = 0;
+    float wDerivative = 0;
+    int wError = 0;
+    int wPrev_error = 0;
+    int wCurrSpeed = 0;
+    int wFlyPower = 0;
+    int wNewCount = 0;
+    bool hitToggleFSpeed = false;
+    list<int> values;
+    int vectorSize = 50;
+    float divideSum = 0;
+    float actValue = 0;
+    float tempSum = 0;
+    list<int>::iterator it;
+    int indice = 0;
+
+    while(true) {
+			wCurrSpeed = (F1.get_actual_velocity());
+			
+			//pushing value to back of the arraylist
+			values.push_back(wCurrSpeed);
+
+
+			if(values.size() > vectorSize) {
+				values.pop_front();
+			}
+
+			for(it = values.begin(); it != values.end(); it++){
+				float multiplier = 0.01 * indice*indice;
+
+				tempSum += (multiplier * *it);
+				divideSum += multiplier;
+
+				indice++;
+			}
+
+			actValue = tempSum / divideSum;
+
+			wPrev_error = wError;
+
+			wError = tTarget - actValue;
+
+			if(abs(wError) < 25) { 
+				integral += error * 0.01;
+			}
+			else {
+				integral = 0;
+			}
+
+			derivative = error - prev_error;
+
+			wFlyPower = wkV * tTarget + wkP*error + wkI * integral + wkD * derivative;
+
+			F1.move(wFlyPower);
+
+		
+			
+			indice = 1;
+			tempSum = 0;
+			divideSum = 0;
+
+			delay(10);
+		}
+  }
+
+  void setTarget(int target) {
+    tTarget = target;
+  }
+
+
+void skills() {
+    // Task spinFlywheel(510);
     
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+      
+    straightDrive(-5); // drive into roller 
+    spinToRed(); // spin to our color 
+    delay(5); // wait
+    straightDrive(5); // go back forward
+    delay(5); // wait 
+    pidturn(-8); // turn to face high goal
+    fireFlywheel(2); // shoot preload discs
+
+    toggleIntakePiston(); // put up intake
+    moveIntake(127); // strat intaking
+    straightDrive(10); // pick up 3 stack
+    toggleIntakePiston(); // drop intake
+    fireFlywheel(3); // fire 3 stack
+    pidturn(90); // make rollers face other roller 
+    straightDrive(-10); // drive up to roller 
+    spinToRed(); // spin roller
+    straightDrive(10); // drive out
+    pidturn(45); // turn to face field
+
+    toggleExpansion(); // bang
 }
 
 

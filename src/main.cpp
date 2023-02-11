@@ -2,6 +2,7 @@
 #include "global.h"
 #include "pid.h"
 #include "pros/misc.h"
+#include "pros/rtos.h"
 #include <iostream>
 #include <fstream>
 #include <list>
@@ -47,7 +48,9 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
+void competition_initialize() {
+	expansion.set_value(false);
+}
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -63,9 +66,14 @@ void competition_initialize() {}
 void autonomous() {
 	imu.reset();
 	while(imu.is_calibrating()) delay(5);
-
+	
+	Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+	setTarget(600);
+	delay(5000);
+	fireFlywheel(3);
 	// pidturn(180);
-	straightDrive(75);
+	// straightDrive(75);
 	// pidmove(2000);
 }
 
@@ -311,6 +319,10 @@ void opcontrol() {
 		}
 		else PAnglerButton = false;
 		
+		if(con.get_digital(E_CONTROLLER_DIGITAL_LEFT) && con.get_digital(E_CONTROLLER_DIGITAL_RIGHT)) {
+			expansion.set_value(true);
+		}
+
 
 		count ++;
 		newCount++;

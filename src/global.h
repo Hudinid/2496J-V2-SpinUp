@@ -23,7 +23,7 @@ namespace glb {
     #define P_INTAKEPISTON 'A'
     #define P_ANGLERPISTON 'B'
     #define P_AUTONSELECTOR 'C'
-    
+    #define P_EXPANSION 'D'
     
 
     Motor RF (P_RF, E_MOTOR_GEARSET_06);
@@ -36,6 +36,8 @@ namespace glb {
     Motor F1 (F_1, E_MOTOR_GEARSET_06, 1);
     ADIDigitalOut intakePiston(P_INTAKEPISTON);
     ADIDigitalOut anglerPiston(P_ANGLERPISTON);
+    ADIDigitalOut expansion(P_EXPANSION);
+
     ADIDigitalIn autonSelector(P_AUTONSELECTOR);
 
     //Motor flywheel(TEST1, E_MOTOR_GEARSET_06, 1);
