@@ -145,7 +145,7 @@ void opcontrol() {
 		int right = power - turn; // anabel was here
 
 		RF.move(right);
-		RM.move(right);
+		RM.move(right); // anabel was here2
 		RB.move(right); // hi
 		LF.move(left);
 		LM.move(left);
