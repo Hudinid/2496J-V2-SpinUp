@@ -384,7 +384,7 @@ void straightDrive(int target) {
     chas_move(0,0);
 }
 
-void redAutonLeft() {
+void skills() {
     Task spinFlywheel(510);
 
     straightDrive(-5);
