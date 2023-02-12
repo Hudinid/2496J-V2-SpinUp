@@ -71,14 +71,14 @@ void autonomous() {
 	Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 	setTarget(600);
-	delay(100);
+	delay(500);
 	moveIntake(127);
 	straightDrive(-2);
 	delay(150);
 	
 	moveIntake(0);
 	straightDrive(8);
-	pidturn(0);
+	pidturn(-3);
 	fireFlywheel(2);
 	delay(100);
 	moveIntake(0);
@@ -105,7 +105,7 @@ void autonomous() {
 
 	pidturn(90);
 
-	moveIntake(127);
+	
 	setTarget(550);
 
 	chas_move(-80,-80);
@@ -116,6 +116,10 @@ void autonomous() {
 
 	chas_move(-10,-10);
 	delay(100);
+
+	chas_move(0,0);
+
+	delay(300);
 	
 	
 	chas_move(100, 100);
