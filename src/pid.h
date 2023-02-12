@@ -339,7 +339,8 @@ void straightDrive(int target) {
     int count = 0;
     int timeout = 0;
     double limiter = 0.01;
-    
+    double initHeading;
+    double currHeading;
 
     imu.set_heading(90);
 
@@ -365,6 +366,11 @@ void straightDrive(int target) {
             dPower = min(dPower, 127);
         }
 
+        currHeading = imu.get_heading();
+        // 359 4
+        //4 8 
+        // 4 359
+        //tError = fabs(initHeading - currHeading) < 90 ? initHeading - currHeading : 360 - max(initHeading, currHeading) + min(initHeading, currHeading) * (currHeading > initHeading ? 1 : -1);
         tError = imu.get_heading() - 90;
         tIntegral += tError / 100; 
         dPower *= limiter;
@@ -419,8 +425,9 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(500);
+        delay(350);
         moveIntake(0);
+        delay(500);
     }
 }
 

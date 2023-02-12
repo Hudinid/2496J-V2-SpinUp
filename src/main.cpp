@@ -50,6 +50,7 @@ void disabled() {}
  */
 void competition_initialize() {
 	expansion.set_value(false);
+	intakePiston.set_value(true);
 }
 
 /**
@@ -70,8 +71,71 @@ void autonomous() {
 	Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 	setTarget(600);
-	delay(5000);
+	delay(100);
+	moveIntake(127);
+	straightDrive(-2);
+	delay(150);
+	
+	moveIntake(0);
+	straightDrive(8);
+	pidturn(0);
+	fireFlywheel(2);
+	delay(100);
+	moveIntake(0);
+	pidturn(0);
+	delay(100);
+	intakePiston.set_value(false);
+	reset_encoders();
+	//timmy was here
+	
+	chas_move(100, 100);
+	delay(200);
+	chas_move(50, 50);
+	delay(150);
+	chas_move(0,0);
+	moveIntake(127);
+	delay(200);
+
+	intakePiston.set_value(true);
+	delay(2000);
+
+	chas_move(50, 50);
+	delay(200);
+	chas_move(0,0);
+
+	pidturn(90);
+
+	moveIntake(127);
+	setTarget(550);
+
+	chas_move(-80,-80);
+	delay(850);
+	chas_move(0,0);
+
+	delay(650);
+
+	chas_move(-10,-10);
+	delay(100);
+	
+	
+	chas_move(100, 100);
+	delay(300);
+
+	chas_move(0,0);
+
+	pidturn(5);
+	
 	fireFlywheel(3);
+
+	chas_move(-50,-50);
+	delay(400);
+	chas_move(0,0);
+
+	pidturn(45);
+
+	expansion.set_value(true);
+
+	
 	// pidturn(180);
 	// straightDrive(75);
 	// pidmove(2000);
