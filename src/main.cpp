@@ -172,6 +172,7 @@ void opcontrol() {
 	bool PIntakeButton = false;
 	bool PAnglerActive = false;
 	bool PAnglerButton = false;
+	int endgameTimer = 0;
 
 	con.clear();
 
@@ -386,11 +387,14 @@ void opcontrol() {
 			}
 		}
 		else PAnglerButton = false;
-		
-		if(con.get_digital(E_CONTROLLER_DIGITAL_LEFT) && con.get_digital(E_CONTROLLER_DIGITAL_RIGHT)) {
+
+		if(con.get_digital(E_CONTROLLER_DIGITAL_LEFT) && endgameTimer >= 105000) {
 			expansion.set_value(true);
 		}
 
+		if(con.get_digital(E_CONTROLLER_DIGITAL_RIGHT)) { 
+			endgameTimer = 105000;
+		}
 
 		count ++;
 		newCount++;
