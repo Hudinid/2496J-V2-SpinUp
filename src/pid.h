@@ -508,31 +508,78 @@ void taskFlywheel() {
 
 
 void skills() {
-    // Task spinFlywheel(510);
-    
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
-      
-    straightDrive(-5); // drive into roller 
-    spinToRed(); // spin to our color 
-    delay(5); // wait
-    straightDrive(5); // go back forward
-    delay(5); // wait 
-    pidturn(-8); // turn to face high goal
-    fireFlywheel(2); // shoot preload discs
+	setTarget(600);
+	delay(2000);
+	moveIntake(127);
+	straightDrive(-2);
+	delay(350);
+	
+	moveIntake(0);
+	straightDrive(8);
+	pidturn(-3);
+	fireFlywheel(2);
+	delay(100);
+	moveIntake(0);
+	pidturn(0);
+	delay(100);
+	intakePiston.set_value(false);
+	reset_encoders();
+	//timmy was here
+	
+	chas_move(100, 100);
+	delay(200);
+	chas_move(50, 50);
+	delay(50);
+	chas_move(0,0);
+	moveIntake(127);
+	delay(200);
 
-    toggleIntakePiston(); // put up intake
-    moveIntake(127); // strat intaking
-    straightDrive(10); // pick up 3 stack
-    toggleIntakePiston(); // drop intake
-    fireFlywheel(3); // fire 3 stack
-    pidturn(90); // make rollers face other roller 
-    straightDrive(-10); // drive up to roller 
-    spinToRed(); // spin roller
-    straightDrive(10); // drive out
-    pidturn(45); // turn to face field
+	intakePiston.set_value(true);
+	delay(2000);
 
-    toggleExpansion(); // bang
+	chas_move(50, 50);
+	delay(200);
+	chas_move(0,0);
+
+	pidturn(90);
+
+	
+	setTarget(550);
+
+	chas_move(-80,-80);
+	delay(850);
+	chas_move(0,0);
+
+	delay(650);
+
+	chas_move(-10,-10);
+	delay(100);
+
+	chas_move(0,0);
+
+	delay(300);
+	
+	
+	chas_move(100, 100);
+	delay(300);
+
+	chas_move(0,0);
+
+	pidturn(5);
+	
+	fireFlywheel(3);
+
+	chas_move(-50,-50);
+	delay(400);
+	chas_move(0,0);
+
+	pidturn(45);
+
+	expansion.set_value(true);
+
+	
 }
 
 
