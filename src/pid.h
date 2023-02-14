@@ -321,9 +321,9 @@ void straightDrive(int target) {
     target *= 28.65;
     double dKP = 1;
     double dKI = 0.001;
-    double dKD = 0.075;
+    double dKD = 0.06;
 
-    double tI = 58;
+    double tI = 42;
 
     double adjust = 0;
     double tError = 0;
@@ -339,15 +339,14 @@ void straightDrive(int target) {
     int count = 0;
     int timeout = 0;
     double limiter = 0.01;
-    double initHeading;
-    double currHeading;
+    int newCount = 0;
+    double currHeading = 0;
 
     imu.set_heading(90);
 
 
     while (true) {
         currentPos = (LF.get_position() + LM.get_position() + LB.get_position() + RF.get_position() + RM.get_position() + RB.get_position()) / 6;
-        limiter += 0.05;
         
         dError = target-currentPos;
         if(abs(dError) < 750) {
@@ -359,13 +358,13 @@ void straightDrive(int target) {
 
         dPower = dKP * dError + dIntegral * dKI + dDerivative * dKD;
 
-        if(power < 0) {
+        if(dPower < 0) {
             dPower = min(dPower, -127);
         }
         else {
             dPower = min(dPower, 127);
         }
-
+        
         currHeading = imu.get_heading();
         // 359 4
         //4 8 
@@ -378,19 +377,21 @@ void straightDrive(int target) {
         powerAdj = abs(dPower) / 80.0 * tIntegral * tI;
 
         chas_move(dPower - powerAdj, dPower + powerAdj);
-        // LF.move(power-powerAdj); LM.move(power-powerAdj); LB.move(power-powerAdj); 
-        // RF.move(power+powerAdj); RM.move(power+powerAdj); RB.move(power+powerAdj);
-
+       
 
         if(limiter >= 1) {
             limiter = 1;
         }
+        else {
+            limiter += 0.05;
+        }
+
         if (abs(target-currentPos) <= 150) count++;
         if (count >= COUNT_CONST) break; //|| runtime_count >= MAX_RUNTIME
 
         if (abs(target-currentPos) <= 300) timeout++;
         if(timeout >= MAXTIME) break;
-
+        newCount++;
         delay(10);
     }
     chas_move(0,0);

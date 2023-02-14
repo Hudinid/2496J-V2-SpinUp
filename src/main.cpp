@@ -55,7 +55,7 @@ void competition_initialize() {
 	
 	expansion.set_value(false);
 	intakePiston.set_value(true);
-	
+	con.clear();
 }
 
 /**
@@ -70,8 +70,11 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	
-	skills();
+	// straightDrive(10);
+	// pidturn(90);
+	// delay(5);
+	straightDrive(50);
+	// skills();
 	// pidturn(180);
 	// straightDrive(75);
 	// pidmove(2000);
