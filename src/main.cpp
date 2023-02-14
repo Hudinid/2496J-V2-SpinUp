@@ -150,7 +150,7 @@ void opcontrol() {
 
 		// double turn = (abs(valForTurn) * valForTurn / 75);
 		double turn = (3000*valForTurn + 0.2*pow(valForTurn, 3)); 
-		turn /= 4000;
+		turn /= 5000;
 		// double turn = valForTurn; 
 		
 		int left = power + turn; // implement turning
