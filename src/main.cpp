@@ -70,10 +70,14 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
+	//  Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	// , TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    // setTarget(500);
+	redLeft();
 	// straightDrive(10);
 	// pidturn(90);
 	// delay(5);
-	straightDrive(50);
+	// straightDrive(50);
 	// skills();
 	// pidturn(180);
 	// straightDrive(75);

@@ -20,7 +20,7 @@ float integral = 0;
 float error = 0;
 float prev_error = 0;
 float prev_derivative;
-int tTarget = 480;
+int tTarget = 0;
 
 int stored_error; //global
 int stored_target; //global
@@ -30,7 +30,7 @@ int stored_min_max[20]; //global
 int stored_time[20]; //global
 int stored_imu;
 int moveCount = 0;
-bool intakeP = false;
+bool intakeP = true;
 bool flywheelP = false;
 
 
@@ -426,9 +426,10 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(350);
+        delay(245);
         moveIntake(0);
-        delay(500);
+        delay(650);
+        //timmy was here
     }
 }
 
@@ -453,6 +454,7 @@ void taskFlywheel() {
     float tempSum = 0;
     list<int>::iterator it;
     int indice = 0;
+    //and here
 
     while(true) {
 			wCurrSpeed = (F1.get_actual_velocity());
@@ -481,15 +483,15 @@ void taskFlywheel() {
 			wError = tTarget - actValue;
 
 			if(abs(wError) < 25) { 
-				integral += error * 0.01;
+				wIntegral += wError * 0.01;
 			}
 			else {
-				integral = 0;
+				wIntegral = 0;
 			}
 
-			derivative = error - prev_error;
+			derivative = wError - wPrev_error;
 
-			wFlyPower = wkV * tTarget + wkP*error + wkI * integral + wkD * derivative;
+			wFlyPower = wkV * tTarget + wkP*wError + wkI * wIntegral + wkD * wDerivative;
 
 			F1.move(wFlyPower);
 
@@ -505,9 +507,47 @@ void taskFlywheel() {
 
   void setTarget(int target) {
     tTarget = target;
+    //hello
   }
 
+void redLeft() {
+    
+    setTarget(504);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    //AHHHHHH slay!
+    delay(500);
+    
+    moveIntake(127); // toggle roller
+    straightDrive(-5);
+    delay(300);
+    straightDrive(13);
+    delay(500);
+    moveIntake(0);
+    
+    pidturn(-7); // turn and fire
+    fireFlywheel(2);
+    delay(100);
+    // setTarget(490);
 
+    toggleIntakePiston(); // intake second half
+    
+    moveIntake(127); //timmy sin/cos <- fr fr (for realsies)
+    pidturn(-8);
+
+    chas_move(45, 45);
+    // straightDrive(18);
+
+    delay(450);
+
+    chas_move(0, 0);
+    toggleIntakePiston();
+    
+
+    delay(4000);
+    
+    fireFlywheel(3);
+}
 void skills() {
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
