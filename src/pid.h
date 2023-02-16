@@ -50,13 +50,13 @@ bool flywheelP = false;
 
 void spinToBlue() {
     double hue = optical.get_hue();
-    double hue2 = optical2.get_hue(); 
+    // double hue2 = optical2.get_hue(); 
     optical.set_led_pwm(25);
-    optical2.set_led_pwm(25);
+    // optical2.set_led_pwm(25);
 
-    while(hue < 80 || hue > 220 && hue2 < 80 || hue2 > 220) {
+    while(hue < 80 || hue > 220) {
         hue = optical.get_hue();
-        hue2 = optical.get_hue();
+        // hue2 = optical.get_hue();
 
         INTAKE.move(55);
         delay(5);
@@ -68,15 +68,15 @@ void spinToBlue() {
 void spinToRed() {
     
     double hue = optical.get_hue(); 
-    double hue2 = optical2.get_hue();
+    // double hue2 = optical2.get_hue();
     optical.set_led_pwm(25);
-    optical2.set_led_pwm(25);
+    // optical2.set_led_pwm(25);
 
-    while(hue > 70 && hue2 > 70) {
+    while(hue > 70) {
         hue = optical.get_hue();
-        hue2 = optical.get_hue();
+        // hue2 = optical.get_hue();
 
-        INTAKE.move(55);
+        INTAKE.move(100);
         delay(5);
     }
 
@@ -426,9 +426,10 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(245);
+        delay(200);
         moveIntake(0);
-        delay(650);
+        
+        delay(750);
         //timmy was here
     }
 }
@@ -512,42 +513,87 @@ void taskFlywheel() {
 
 void redLeft() {
     
-    setTarget(504);
+    setTarget(520);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+
     //AHHHHHH slay!
-    delay(500);
+    
+    delay(100);
     
     moveIntake(127); // toggle roller
-    straightDrive(-5);
-    delay(300);
+    // straightDrive(-2);
+    chas_move(-20,-20);
+
+    // spinToRed();
+    delay(600);
+    
     straightDrive(13);
-    delay(500);
+
+    delay(100);
+    
     moveIntake(0);
     
     pidturn(-7); // turn and fire
     fireFlywheel(2);
-    delay(100);
-    // setTarget(490);
+    
+    delay(750);
+    // setTarget(510);
+    
+    
+
+    setTarget(495);
 
     toggleIntakePiston(); // intake second half
     
     moveIntake(127); //timmy sin/cos <- fr fr (for realsies)
-    pidturn(-8);
 
-    chas_move(45, 45);
+    delay(100);
+
+    pidturn(-9);
+
+    chas_move(30, 30);
     // straightDrive(18);
 
-    delay(450);
+    delay(900);
 
     chas_move(0, 0);
     toggleIntakePiston();
     
 
-    delay(4000);
+    delay(3800);
+
     
-    fireFlywheel(3);
+    fireFlywheel(4); // fire the three picked up
+    // setTarget(600);
+    // delay(750);
+    // fireFlywheel(1);
+    // delay(1000);
+    // fireFlywheel(1);
+    delay(1000);
+
+    // flywheel.suspend();
+
+    // straightDrive(-10); // go back and turn
+    // setTarget(510);
+    // pidturn(45);
+
+    // toggleIntakePiston();
+    
+    // moveIntake(127);
+    // chas_move(60, 60); // drive to other 3 stack
+    // delay(400);
+    
+    // chas_move(0,0);
+    
+    // toggleIntakePiston(); 
+
+    // flywheel.suspend();
+
 }
+
+
+
 void skills() {
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
