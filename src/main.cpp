@@ -71,16 +71,14 @@ void competition_initialize() {
  */
 void autonomous() {
 	
-	redRight();
+	redRight2();
 	// redLeft();
-	// straightDrive(10);
-	// pidturn(90);
-	// delay(5);
-	// straightDrive(50);
-	// skills();
-	// pidturn(180);
-	// straightDrive(75);
-	// pidmove(2000);
+	// setTarget(520);
+    // Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	// , TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+
+	// delay(3000);
+	// fireFlywheel(2);
 }
 
 /**
@@ -99,7 +97,7 @@ void autonomous() {
 
  // USE TASKS FOR FLYWHEEL PID
 void opcontrol() {
-	int flySpeed = 420;
+	// int flySpeed = 420;
 	bool toggleFlyWheel = false;
 	bool hitFlyWheelToggle = false;
 	int flywheelSpeeds = 1;
@@ -168,9 +166,13 @@ void opcontrol() {
 		LB.move(left);	
 
 
-		if(count%50 == 0) {
+		if(count%50 == 0 && count % 100 != 0) {
 			con.print(0, 0, "Flywheel Speed: %d", target);
 		}
+		if(count%100 == 0) { 
+			con.print(1, 0, "Flywheel temp: %f", F1.get_temperature());
+		}
+
 
 		// if(toggleFlyWheel) {
 		// 	F1.move_velocity(flySpeed);

@@ -426,7 +426,7 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(150);
+        delay(200);
         moveIntake(0);
         
         delay(750);
@@ -461,6 +461,9 @@ void taskFlywheel() {
 			wCurrSpeed = (F1.get_actual_velocity());
 			
 			//pushing value to back of the arraylist
+            if(wNewCount%50 == 0) {
+                con.print(0, 0, "Flywheel Temp: %f", F1.get_temperature());
+            }
 			values.push_back(wCurrSpeed);
 
 
@@ -501,7 +504,7 @@ void taskFlywheel() {
 			indice = 1;
 			tempSum = 0;
 			divideSum = 0;
-
+            wNewCount++;
 			delay(10);
 		}
   }
@@ -520,9 +523,10 @@ void redRight2() {
     straightDrive(28);
     delay(100);
     pidturn(28);
-    delay(500);
+    delay(575);
     fireFlywheel(3);
 
+    setTarget(495);
     pidturn(90);
     toggleIntakePiston();
     chas_move(40, 40);
@@ -530,16 +534,18 @@ void redRight2() {
     delay(550);
     chas_move(0,0);
     toggleIntakePiston();
-    delay(1100);
-    straightDrive(-8);
+    delay(1200);
+//anime women
+    straightDrive(-8); // back up to shoot
     delay(500);
-    pidturn(20);
-    delay(500);
-    fireFlywheel(3);
+    pidturn(22);
+    delay(425);
+    fireFlywheel(2);
     delay(100);
-    pidturn(-10);
+    pidturn(-17);
     moveIntake(-127);
     chas_move(-100,-100);
+    flywheel.suspend();
 }
 
 void redRight() {
@@ -567,9 +573,9 @@ void redRight() {
     moveIntake(0);
     chas_move(0,0);
 
-    setTarget(0);
 
-    flywheel.suspend();
+    setTarget(0);
+    flywheel.remove();
 }
 
 void redLeft() {
@@ -648,8 +654,8 @@ void redLeft() {
     // chas_move(0,0);
     
     // toggleIntakePiston(); 
-
-    // flywheel.suspend();
+    setTarget(0);
+    flywheel.remove();
 
 }
 
