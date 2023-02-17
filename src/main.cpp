@@ -70,9 +70,9 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	// straightDrive(-5);
-	// spinToRed();
-	redLeft();
+	
+	redRight();
+	// redLeft();
 	// straightDrive(10);
 	// pidturn(90);
 	// delay(5);
@@ -121,7 +121,7 @@ void opcontrol() {
 	float integral = 0;
 	float derivative = 0;
 	
-	int target = 470;
+	int target = 420;
 
 	int error = 0;
 	int prev_error = 0;
@@ -172,71 +172,71 @@ void opcontrol() {
 			con.print(0, 0, "Flywheel Speed: %d", target);
 		}
 
-		if(toggleFlyWheel) {
-			F1.move_velocity(flySpeed);
-		}
-
-		// if(toggleFlyWheel && con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
-		// 	F1.move(600);
-			
-		// 	count2 ++;
-		// 	if(count2 % 1000) {
-		// 		con.rumble(".");
-		// 	}
-			
-		// } 
-		// else if(toggleFlyWheel) {
-		// 	count2 ++;
-		// 	if(count2 % 1000) {
-		// 		con.rumble(".");
-		// 	}
-		// 	currSpeed = (F1.get_actual_velocity());
-		// 	values.push_back(currSpeed);
-
-		// 	if(values.size() > vectorSize) {
-		// 		values.pop_front();
-		// 	}
-
-		// 	for(it = values.begin(); it != values.end(); it++){
-		// 		float multiplier = 0.01 * indice*indice;
-
-		// 		tempSum += (multiplier * *it);
-		// 		divideSum += multiplier;
-
-		// 		indice++;
-		// 	}
-
-		// 	actValue = tempSum / divideSum;
-
-		// 	prev_error = error;
-
-		// 	error = target - actValue;
-
-		// 	if(abs(error) < 25) { 
-		// 		integral += error * 0.01;
-		// 	}
-		// 	else {
-		// 		integral = 0;
-		// 	}
-
-		// 	derivative = error - prev_error;
-
-		// 	flyPower = kV * target + kP*error + kI * integral + kD * derivative;
-
-		// 	F1.move(flyPower);
-					
-		// 	indice = 1;
-		// 	tempSum = 0;
-		// 	divideSum = 0;
-
-		// 	count2 ++;
-		// 	if(count2 % 1000) {
-		// 		con.rumble(".");
-		// 	}
-
-		// 	delay(5);
+		// if(toggleFlyWheel) {
+		// 	F1.move_velocity(flySpeed);
 		// }
-		// else F1.move(0);
+
+		if(toggleFlyWheel && con.get_digital(E_CONTROLLER_DIGITAL_R2)) {
+			F1.move(600);
+			
+			count2 ++;
+			if(count2 % 1000) {
+				con.rumble(".");
+			}
+			
+		} 
+		else if(toggleFlyWheel) {
+			count2 ++;
+			if(count2 % 1000) {
+				con.rumble(".");
+			}
+			currSpeed = (F1.get_actual_velocity());
+			values.push_back(currSpeed);
+
+			if(values.size() > vectorSize) {
+				values.pop_front();
+			}
+
+			for(it = values.begin(); it != values.end(); it++){
+				float multiplier = 0.01 * indice*indice;
+
+				tempSum += (multiplier * *it);
+				divideSum += multiplier;
+
+				indice++;
+			}
+
+			actValue = tempSum / divideSum;
+
+			prev_error = error;
+
+			error = target - actValue;
+
+			if(abs(error) < 25) { 
+				integral += error * 0.01;
+			}
+			else {
+				integral = 0;
+			}
+
+			derivative = error - prev_error;
+
+			flyPower = kV * target + kP*error + kI * integral + kD * derivative;
+
+			F1.move(flyPower);
+					
+			indice = 1;
+			tempSum = 0;
+			divideSum = 0;
+
+			count2 ++;
+			if(count2 % 1000) {
+				con.rumble(".");
+			}
+
+			delay(5);
+		}
+		else F1.move(0);
 
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_R1)) { // then allow for manual control through R1 and R2

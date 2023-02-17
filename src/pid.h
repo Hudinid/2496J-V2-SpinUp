@@ -426,7 +426,7 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(200);
+        delay(150);
         moveIntake(0);
         
         delay(750);
@@ -510,6 +510,67 @@ void taskFlywheel() {
     tTarget = target;
     //hello
   }
+void redRight2() {
+    setTarget(510);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    delay(100);
+    
+    moveIntake(127); // pick up and fire 3 discs
+    straightDrive(28);
+    delay(100);
+    pidturn(28);
+    delay(500);
+    fireFlywheel(3);
+
+    pidturn(90);
+    toggleIntakePiston();
+    chas_move(40, 40);
+    moveIntake(127);
+    delay(550);
+    chas_move(0,0);
+    toggleIntakePiston();
+    delay(1100);
+    straightDrive(-8);
+    delay(500);
+    pidturn(20);
+    delay(500);
+    fireFlywheel(3);
+    delay(100);
+    pidturn(-10);
+    moveIntake(-127);
+    chas_move(-100,-100);
+}
+
+void redRight() {
+    setTarget(508);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    delay(100);
+    
+    moveIntake(127); // pick up and fire 3 discs
+    straightDrive(25);
+    delay(500);
+    pidturn(28);
+    delay(1000);
+    fireFlywheel(3);
+
+    pidturn(0); // back to starting position
+    straightDrive(-20);
+
+    pidturn(-90); // turn go, turn go toggle
+    straightDrive(-38);
+    pidturn(0);
+    chas_move(-40,-40);
+    moveIntake(-127);
+    delay(1000);
+    moveIntake(0);
+    chas_move(0,0);
+
+    setTarget(0);
+
+    flywheel.suspend();
+}
 
 void redLeft() {
     
