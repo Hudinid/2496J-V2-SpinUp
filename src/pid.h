@@ -513,7 +513,7 @@ void taskFlywheel() {
     tTarget = target;
     //hello
   }
-void redRight2() {
+void redRightGreed() {
     setTarget(510);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
@@ -529,10 +529,12 @@ void redRight2() {
     setTarget(495);
     pidturn(90);
     toggleIntakePiston();
-    chas_move(40, 40);
+    // chas_move(40, 40);
+    
     moveIntake(127);
-    delay(550);
-    chas_move(0,0);
+    straightDrive(20);
+    // delay(550);
+    // chas_move(0,0);
     toggleIntakePiston();
     delay(1200);
 //anime women
@@ -542,10 +544,10 @@ void redRight2() {
     delay(425);
     fireFlywheel(2);
     delay(100);
-    pidturn(-17);
+    pidturn(-21);
     moveIntake(-127);
     chas_move(-100,-100);
-    flywheel.suspend();
+    flywheel.remove();
 }
 
 void redRight() {
@@ -580,7 +582,7 @@ void redRight() {
 
 void redLeft() {
     
-    setTarget(520);
+    setTarget(585);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
@@ -604,12 +606,12 @@ void redLeft() {
     pidturn(-7); // turn and fire
     fireFlywheel(2);
     
-    delay(750);
+    delay(500);
     // setTarget(510);
     
     
 
-    setTarget(495);
+    setTarget(502);
 
     toggleIntakePiston(); // intake second half
     
@@ -617,43 +619,25 @@ void redLeft() {
 
     delay(100);
 
-    pidturn(-9);
+    pidturn(45);
 
-    chas_move(30, 30);
-    // straightDrive(18);
+    // chas_move(40, 40);
+    straightDrive(25);
 
-    delay(900);
+    delay(500);
 
-    chas_move(0, 0);
+    // chas_move(0, 0);
     toggleIntakePiston();
     
 
-    delay(3800);
+    delay(3300);
 
+    pidturn(-15);
+    delay(300);    
+    fireFlywheel(3); // fire the three picked up
     
-    fireFlywheel(4); // fire the three picked up
-    // setTarget(600);
-    // delay(750);
-    // fireFlywheel(1);
-    // delay(1000);
-    // fireFlywheel(1);
     delay(1000);
 
-    // flywheel.suspend();
-
-    // straightDrive(-10); // go back and turn
-    // setTarget(510);
-    // pidturn(45);
-
-    // toggleIntakePiston();
-    
-    // moveIntake(127);
-    // chas_move(60, 60); // drive to other 3 stack
-    // delay(400);
-    
-    // chas_move(0,0);
-    
-    // toggleIntakePiston(); 
     setTarget(0);
     flywheel.remove();
 

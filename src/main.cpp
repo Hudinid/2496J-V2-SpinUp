@@ -71,7 +71,7 @@ void competition_initialize() {
  */
 void autonomous() {
 	
-	redRight2();
+	redRightGreed();
 	// redLeft();
 	// setTarget(520);
     // Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
