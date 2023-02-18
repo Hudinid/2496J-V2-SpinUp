@@ -70,8 +70,10 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	
-	redRightGreed();
+	soloAwp();
+	// redLeftGreed();
+	// redRightGreed();
+	// soloAwp();
 	// redLeft();
 	// setTarget(520);
     // Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT

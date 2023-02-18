@@ -580,9 +580,8 @@ void redRight() {
     flywheel.remove();
 }
 
-void redLeft() {
-    
-    setTarget(585);
+void redLeftGreed() {
+    setTarget(590);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
@@ -591,13 +590,13 @@ void redLeft() {
     delay(100);
     
     moveIntake(127); // toggle roller
-    // straightDrive(-2);
-    chas_move(-20,-20);
+    
+    chas_move(-30,-30);
 
     // spinToRed();
-    delay(600);
+    delay(500);
     
-    straightDrive(13);
+    straightDrive(14);
 
     delay(100);
     
@@ -619,7 +618,7 @@ void redLeft() {
 
     delay(100);
 
-    pidturn(45);
+    pidturn(46);
 
     // chas_move(40, 40);
     straightDrive(25);
@@ -643,6 +642,107 @@ void redLeft() {
 
 }
 
+void redLeft() {
+    
+    setTarget(590);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+
+    //AHHHHHH slay!
+    
+    delay(100);
+    
+    moveIntake(127); // toggle roller
+    
+    chas_move(-30,-30);
+
+    // spinToRed();
+    delay(500);
+    
+    straightDrive(14);
+
+    delay(100);
+    
+    moveIntake(0);
+    
+    pidturn(-7); // turn and fire
+    fireFlywheel(2);
+    
+    delay(500);
+    // setTarget(510);
+    
+    
+
+    setTarget(502);
+
+    toggleIntakePiston(); // intake second half
+    
+    moveIntake(127); //timmy sin/cos <- fr fr (for realsies)
+
+    delay(100);
+
+    pidturn(46);
+
+    // chas_move(40, 40);
+    straightDrive(25);
+
+    delay(500);
+
+    // chas_move(0, 0);
+    toggleIntakePiston();
+    
+
+    delay(3300);
+
+    pidturn(-15);
+    delay(300);    
+    fireFlywheel(3); // fire the three picked up
+    
+    delay(1000);
+
+    setTarget(0);
+    flywheel.remove();
+
+}
+void soloAwp() {
+    
+    setTarget(525);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    moveIntake(-127);
+    chas_move(-20, -20);
+    delay(380); // roller
+    
+
+    pidturn(0);
+    
+    moveIntake(127);
+    toggleIntakePiston();
+
+    straightDrive(45);
+    delay(10);
+    toggleIntakePiston();
+    delay(500);
+    straightDrive(43);
+    delay(100);
+    pidturn(-76);
+    delay(1400);
+    fireFlywheel(3);
+
+    delay(100);
+    pidturn(0);
+    moveIntake(127);
+    straightDrive(120);
+    delay(150);
+
+    pidturn(180);
+
+    moveIntake(-127);
+    chas_move(-127, -127);
+
+    setTarget(0);
+    flywheel.remove();
+}
 
 
 void skills() {
