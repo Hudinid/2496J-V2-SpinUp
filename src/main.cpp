@@ -70,11 +70,11 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	soloAwp();
+	skills();
 	// redLeftGreed();
-	// redRightGreed();
+	//redRightGreed();
 	// soloAwp();
-	// redLeft();
+	//redLeft();
 	// setTarget(520);
     // Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	// , TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
@@ -173,6 +173,9 @@ void opcontrol() {
 		}
 		if(count%100 == 0) { 
 			con.print(1, 0, "Flywheel temp: %f", F1.get_temperature());
+		}
+		if(count%75 == 0) { 
+			con.print(2, 0, "Intake temp: %f", INTAKE.get_temperature());
 		}
 
 

@@ -746,76 +746,51 @@ void soloAwp() {
 
 
 void skills() {
+    setTarget(590);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
-	setTarget(600);
-	delay(2000);
-	moveIntake(127);
-	straightDrive(-2);
-	delay(350);
-	
-	moveIntake(0);
-	straightDrive(8);
-	pidturn(-3);
-	fireFlywheel(2);
-	delay(100);
-	moveIntake(0);
-	pidturn(0);
-	delay(100);
-	intakePiston.set_value(false);
-	reset_encoders();
-	//timmy was here
-	
-	chas_move(100, 100);
-	delay(200);
-	chas_move(50, 50);
-	delay(50);
-	chas_move(0,0);
-	moveIntake(127);
-	delay(200);
 
-	intakePiston.set_value(true);
-	delay(2000);
+    //AHHHHHH slay!
+    
+    delay(100);
+    
+    moveIntake(127); // toggle roller
+    
+    chas_move(-30,-30);
 
-	chas_move(50, 50);
-	delay(200);
-	chas_move(0,0);
+    // spinToRed();
+    delay(600);
+    
+    straightDrive(14);
 
-	pidturn(90);
+    delay(100);
+    
+    moveIntake(0);
+    
+    pidturn(-7); // turn and fire
+    fireFlywheel(2);
+    
+    delay(500);
+    // setTarget(510);
+    
+    
 
-	
-	setTarget(550);
+    setTarget(502);
 
-	chas_move(-80,-80);
-	delay(850);
-	chas_move(0,0);
+    moveIntake(127);
 
-	delay(650);
+    pidturn(-35);
 
-	chas_move(-10,-10);
-	delay(100);
+    straightDrive(30);
+    pidturn(90);
 
-	chas_move(0,0);
+    straightDrive(-50);
 
-	delay(300);
-	
-	
-	chas_move(100, 100);
-	delay(300);
+    chas_move(-30,-30);
 
-	chas_move(0,0);
+    delay(300);
 
-	pidturn(5);
-	
-	fireFlywheel(3);
-
-	chas_move(-50,-50);
-	delay(400);
-	chas_move(0,0);
-
-	pidturn(45);
-
-	expansion.set_value(true);
+    chas_move(0,0);
 
 	
 }
