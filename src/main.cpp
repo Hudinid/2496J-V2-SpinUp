@@ -55,6 +55,7 @@ void competition_initialize() {
 	
 	expansion.set_value(false);
 	intakePiston.set_value(true);
+	anglerPiston.set_value(false);
 	con.clear();
 }
 
@@ -72,7 +73,7 @@ void competition_initialize() {
 void autonomous() {
 	skills();
 	// redLeftGreed();
-	//redRightGreed();
+	//redLeft();
 	// soloAwp();
 	//redLeft();
 	// setTarget(520);
@@ -167,6 +168,8 @@ void opcontrol() {
 		LM.move(left);
 		LB.move(left);	
 
+		int avgchastemp = (LF.get_temperature() + LM.get_temperature() + LB.get_temperature() + RF.get_temperature() + RM.get_temperature() + RB.get_temperature())/6;
+
 
 		if(count%50 == 0 && count % 100 != 0) {
 			con.print(0, 0, "Flywheel Speed: %d", target);
@@ -174,9 +177,15 @@ void opcontrol() {
 		if(count%100 == 0) { 
 			con.print(1, 0, "Flywheel temp: %f", F1.get_temperature());
 		}
-		if(count%75 == 0) { 
-			con.print(2, 0, "Intake temp: %f", INTAKE.get_temperature());
+		//if(count%75 == 0) { 
+			//con.print(2, 0, "Intake temp: %f", INTAKE.get_temperature());
+		//}
+
+		if(count%65 == 0) { 
+			con.print(2, 0, "Chas temp: %f", avgchastemp);
 		}
+
+		
 
 
 		// if(toggleFlyWheel) {

@@ -434,6 +434,18 @@ void fireFlywheel(int rep) {
     }
 }
 
+void fireAutonFlywheel(int rep) {
+    for(int i = 0; i < rep; i ++) {
+        moveIntake(-127);
+        delay(200);
+        moveIntake(0);
+        delay(10);
+        //timmy was here
+    }
+
+    moveIntake(0);
+}
+
 
 void taskFlywheel() {
     float wkP = 1.3; // 0.5 has a -13 to 1 range // 0.75
@@ -561,7 +573,7 @@ void redRight() {
     delay(500);
     pidturn(28);
     delay(1000);
-    fireFlywheel(3);
+    fireFlywheel(4);
 
     pidturn(0); // back to starting position
     straightDrive(-20);
@@ -570,13 +582,13 @@ void redRight() {
     straightDrive(-38);
     pidturn(0);
     chas_move(-40,-40);
-    moveIntake(-127);
+    moveIntake(127);
     delay(1000);
     moveIntake(0);
     chas_move(0,0);
 
 
-    setTarget(0);
+    
     flywheel.remove();
 }
 
@@ -657,7 +669,7 @@ void redLeft() {
     chas_move(-30,-30);
 
     // spinToRed();
-    delay(500);
+    delay(250);
     
     straightDrive(14);
 
@@ -665,6 +677,7 @@ void redLeft() {
     
     moveIntake(0);
     
+    delay (150);
     pidturn(-7); // turn and fire
     fireFlywheel(2);
     
@@ -696,11 +709,11 @@ void redLeft() {
 
     pidturn(-15);
     delay(300);    
-    fireFlywheel(3); // fire the three picked up
+    fireFlywheel(4); // fire the three picked up
     
     delay(1000);
 
-    setTarget(0);
+    
     flywheel.remove();
 
 }
@@ -753,46 +766,116 @@ void skills() {
     //AHHHHHH slay!
     
     delay(100);
-    
     moveIntake(127); // toggle roller
-    
     chas_move(-30,-30);
-
     // spinToRed();
-    delay(600);
-    
+    delay(350);
     straightDrive(14);
-
-    delay(100);
-    
-    moveIntake(0);
-    
-    pidturn(-7); // turn and fire
-    fireFlywheel(2);
-    
-    delay(500);
-    // setTarget(510);
-    
-    
-
-    setTarget(502);
-
     moveIntake(127);
-
-    pidturn(-35);
-
-    straightDrive(30);
+    pidturn(-63);
+    straightDrive(31);
+    
     pidturn(90);
+    straightDrive(-20);
 
-    straightDrive(-50);
+    setTarget(440);
 
     chas_move(-30,-30);
 
-    delay(300);
+    delay(550);
 
     chas_move(0,0);
 
-	
+    delay(500);
+
+    chas_move(30,30);
+
+    delay(350);
+
+    chas_move(0,0);
+
+    anglerPiston.set_value(true);
+
+    pidturn(0);
+
+    delay(100);
+
+    straightDrive(98);
+
+    delay(200);
+
+    pidturn(11);
+
+    delay(200);
+
+    moveIntake(-127);
+
+    delay(800);
+
+    //fire first three shots ^^
+    
+    delay(400);
+
+    moveIntake(127);	
+
+    pidturn(0);
+
+    setTarget(450);
+
+    anglerPiston.set_value(false);
+
+    delay(100);
+
+    straightDrive(-80);
+
+    delay(100);
+
+    pidturn(40);
+
+    delay(500);
+
+    straightDrive(125);
+
+    
+
+    delay(500);
+
+    pidturn(-48);
+
+    delay(100);
+
+    chas_move(30,30);
+
+    delay(100);
+
+    chas_move(0,0);
+
+    fireFlywheel(4);
+
+    pidturn(45);
+
+    delay(100);
+
+    moveIntake(127);
+
+    toggleIntakePiston();
+
+    delay(100);
+
+    straightDrive(25);
+
+    delay(100);
+
+    toggleIntakePiston();
+
+    delay(800);
+
+    straightDrive(20);
+
+    pidturn(-90);
+
+
+
 }
 
 
