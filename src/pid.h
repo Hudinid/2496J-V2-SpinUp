@@ -778,6 +778,8 @@ void skills() {
     pidturn(90);
     straightDrive(-20);
 
+    //hi
+
     setTarget(440);
 
     chas_move(-30,-30);
