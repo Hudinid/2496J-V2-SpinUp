@@ -439,7 +439,7 @@ void fireAutonFlywheel(int rep) {
         moveIntake(-127);
         delay(200);
         moveIntake(0);
-        delay(10);
+        delay(250);
         //timmy was here
     }
 
@@ -776,7 +776,11 @@ void skills() {
     straightDrive(31);
     
     pidturn(90);
-    straightDrive(-20);
+
+    delay(200);
+
+
+    straightDrive(-18);
 
     //hi
 
@@ -796,23 +800,21 @@ void skills() {
 
     chas_move(0,0);
 
-    anglerPiston.set_value(true);
+    
 
     pidturn(0);
 
     delay(100);
 
-    straightDrive(98);
+    straightDrive(93);
 
     delay(200);
 
-    pidturn(11);
+    pidturn(9);
 
     delay(200);
 
-    moveIntake(-127);
-
-    delay(800);
+    fireAutonFlywheel(4);
 
     //fire first three shots ^^
     
@@ -822,41 +824,72 @@ void skills() {
 
     pidturn(0);
 
-    setTarget(450);
+    setTarget(446);
 
     anglerPiston.set_value(false);
 
-    delay(100);
+    delay(300);
 
-    straightDrive(-80);
+    straightDrive(-35);
 
-    delay(100);
+    delay(200);
 
-    pidturn(40);
+    pidturn(0);
 
-    delay(500);
+    delay(200);
 
-    straightDrive(125);
-
-    
+    straightDrive(-38);
 
     delay(500);
-
-    pidturn(-48);
-
-    delay(100);
-
-    chas_move(30,30);
-
-    delay(100);
-
-    chas_move(0,0);
-
-    fireFlywheel(4);
 
     pidturn(45);
 
+    delay(2000);
+
+    straightDrive(60);
+
+    delay(200);
+
+    pidturn(45);
+
+    delay(200);
+
+    straightDrive(60);
+
+    
+
+    delay(2000);
+
+    chas_move(50,50);
+
+    delay(150);
+
+    chas_move(0,0);
+
+    delay(1000);
+
+    pidturn(-50);
+
+    delay(1000);
+
+    
+
+    delay(200);
+
+    fireFlywheel(4);
+
+    
+
+    delay(200);
+
+    setTarget(455);
+
+
     delay(100);
+
+    pidturn(45);
+
+    delay(300);
 
     moveIntake(127);
 
@@ -870,11 +903,92 @@ void skills() {
 
     toggleIntakePiston();
 
-    delay(800);
+    delay(1500);
 
     straightDrive(20);
 
+    delay(100);
+
     pidturn(-90);
+
+    delay(100);
+
+    straightDrive(32);
+
+    delay(100);
+
+    pidturn(-72);
+
+    delay(100);
+
+    fireFlywheel(4);
+
+    moveIntake(127);
+
+    delay(100);
+
+    toggleIntakePiston();
+
+    delay(100);
+
+    
+
+    pidturn(125);
+
+    delay(100);
+
+    straightDrive(15);
+
+    delay(100);
+
+    pidturn(90);
+
+    delay(100);
+
+    straightDrive(57);
+
+    delay(250);
+
+    toggleIntakePiston();
+
+    delay(1000);
+
+    chas_move(50,50);
+
+    delay(200);
+
+    chas_move(0,0);
+
+    delay(200);
+
+    pidturn(180);
+
+    straightDrive(-28);
+
+    delay(200);
+
+    chas_move(-30,-30);
+
+    delay(200);
+
+    chas_move(0,0);
+
+    delay(350);
+
+    chas_move(30,30);
+
+    delay(600);
+
+    chas_move(0,0);
+
+    delay(300);
+    
+
+    
+    
+
+
+
 
 
 
