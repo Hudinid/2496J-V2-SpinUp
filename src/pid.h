@@ -735,7 +735,7 @@ void soloAwp() {
     straightDrive(45);
     delay(10);
     toggleIntakePiston();
-    delay(500);
+    delay(275);
     straightDrive(43);
     delay(100);
     pidturn(-76);
