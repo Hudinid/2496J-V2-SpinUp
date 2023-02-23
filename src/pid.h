@@ -439,7 +439,7 @@ void fireAutonFlywheel(int rep) {
         moveIntake(-127);
         delay(200);
         moveIntake(0);
-        delay(250);
+        delay(275);
         //timmy was here
     }
 
@@ -782,22 +782,24 @@ void skills() {
 
     //toggle second roller
     straightDrive(-18);
-    setTarget(440);
+    setTarget(427);
     
     chas_move(-30,-30);
     delay(550);
     chas_move(0,0);
     delay(500);
-
+//delay(milliseconds: 10000000000000);
     chas_move(30,30);
     delay(350);
     chas_move(0,0);
-
+//Gerald was here
     //turn towards goal
     pidturn(0);
     delay(100);
-    straightDrive(93);
+    straightDrive(45);
     delay(200);
+    straightDrive(48);
+    delay(10);
 
     //face goal and fire first three shots
     pidturn(9);
@@ -808,47 +810,51 @@ void skills() {
 
     
     pidturn(0);
-    setTarget(446);
+    setTarget(436);
     anglerPiston.set_value(false);
     delay(300);
 
     //drive and face towards line of three
-    straightDrive(-73);
+    straightDrive(-72);
     delay(200);
     pidturn(45);
-    delay(2000);
+    delay(1000);
 
     //collect three discs (two bursts)
-    straightDrive(60);
-    delay(200);
+    straightDrive(80);
+    delay(300);
     pidturn(45);
-    delay(200);
-    straightDrive(60);
-    delay(2000);
-
-    //correct for the goal
-    chas_move(50,50);
-    delay(150);
-    chas_move(0,0);
+    delay(300);
+    straightDrive(21);
+    delay(500);
+    pidturn(45);
     delay(1000);
+
+    chas_move(50,50);
+
+    delay(200);
+
+    chas_move(0,0);
+
+
 
     //face goal and fire cycle
-    pidturn(-50);
-    delay(1000);
+    pidturn(-46);
+    delay(100);
     fireFlywheel(4);
     delay(200);
     
-    setTarget(455);
+    setTarget(448);
 
     //turn towards three stack
-    pidturn(45);
+    pidturn(44);
     delay(300);
     moveIntake(127);
     toggleIntakePiston();
     delay(100);
-
+// timmy was here
     //drive and collect three stack
-    straightDrive(25);
+    straightDrive(33);
     delay(100);
     toggleIntakePiston();
     delay(1500);
@@ -874,17 +880,17 @@ void skills() {
     delay(100);
     pidturn(125);
     delay(100);
-    straightDrive(15);
+    straightDrive(16);
     delay(100);
 
     //align and collect three stack
     pidturn(90);
     delay(100);
-    straightDrive(57);
+    straightDrive(42);
     delay(250);
 
     toggleIntakePiston();
-    delay(1000);
+    delay(2000);
 
     //align with roller
     chas_move(50,50);
@@ -894,20 +900,36 @@ void skills() {
 
     //turn and move towards roller
     pidturn(180);
-    straightDrive(-28);
+    straightDrive(-37);
     delay(200);
     chas_move(-30,-30);
-    delay(200);
+    delay(700);
     chas_move(0,0);
 
     //toggle roller
-    delay(350);
+    delay(650);
 
     //drive away from roller
-    chas_move(30,30);
-    delay(600);
-    chas_move(0,0);
+    straightDrive(25);
+
+    pidturn(270);
+
+    straightDrive(-35);
+
+    chas_move(-30,-30);
     delay(300);
+    chas_move(0,0);
+
+    //toggle roller
+    delay(450);
+
+    straightDrive(3);
+//does a wheelie
+    pidturn(-235);
+
+    delay(200);
+
+
 
 }
 
