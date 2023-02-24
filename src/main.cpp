@@ -76,6 +76,7 @@ void autonomous() {
 	//redLeft();
 	// soloAwp();
 	//redLeft();
+	//redRight();
 	// setTarget(520);
     // Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	// , TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
@@ -145,8 +146,9 @@ void opcontrol() {
 
 	list<int>::iterator it;
 	int indice = 0;
-	setTarget(0);
+	//setTarget(0);
 	F1.move(0);
+	
 	while (true) {
 
 		int power = con.get_analog(ANALOG_LEFT_Y); // left joystick y axis is power
@@ -170,13 +172,17 @@ void opcontrol() {
 
 		int avgchastemp = (LF.get_temperature() + LM.get_temperature() + LB.get_temperature() + RF.get_temperature() + RM.get_temperature() + RB.get_temperature())/6;
 
+		int flytemp = F1.get_temperature();
+
+		int intaketemp = INTAKE.get_temperature();
 
 		if(count%50 == 0 && count % 100 != 0) {
 			con.print(0, 0, "Flywheel Speed: %d", target);
 		}
-		if(count%100 == 0) { 
-			con.print(1, 0, "Flywheel temp: %f", F1.get_temperature());
+		if(count%75 == 0 && count % 100 != 0) {
+			con.print(1, 0, "F: %d, C %d, I %d", flytemp, avgchastemp, intaketemp);
 		}
+		
 		//if(count%75 == 0) { 
 			//con.print(2, 0, "Intake temp: %f", INTAKE.get_temperature());
 		//}

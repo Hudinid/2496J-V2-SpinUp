@@ -429,7 +429,7 @@ void fireFlywheel(int rep) {
         delay(200);
         moveIntake(0);
         
-        delay(750);
+        delay(755);
         //timmy was here
     }
 }
@@ -563,7 +563,7 @@ void redRightGreed() {
 }
 
 void redRight() {
-    setTarget(508);
+    setTarget(515);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
     delay(100);
@@ -580,12 +580,16 @@ void redRight() {
 
     pidturn(-90); // turn go, turn go toggle
     straightDrive(-38);
+    delay(100);
     pidturn(0);
     chas_move(-40,-40);
     moveIntake(127);
-    delay(1000);
-    moveIntake(0);
+    delay(900);
+    
     chas_move(0,0);
+    delay(100);
+    moveIntake(0);
+
 
 
     
@@ -656,7 +660,7 @@ void redLeftGreed() {
 
 void redLeft() {
     
-    setTarget(590);
+    setTarget(600);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
@@ -671,22 +675,24 @@ void redLeft() {
     // spinToRed();
     delay(250);
     
-    straightDrive(14);
+    straightDrive(18);
 
-    delay(100);
+    delay(300);
     
     moveIntake(0);
     
-    delay (150);
-    pidturn(-7); // turn and fire
-    fireFlywheel(2);
     
-    delay(500);
+    pidturn(-8);
+    delay(500); // turn and fire
+    fireFlywheel(2);//turns off flywheel
+    
+    
+    delay(100);
     // setTarget(510);
     
     
 
-    setTarget(502);
+    setTarget(513);
 
     toggleIntakePiston(); // intake second half
     
@@ -694,10 +700,12 @@ void redLeft() {
 
     delay(100);
 
-    pidturn(46);
+    
+
+    pidturn(47);
 
     // chas_move(40, 40);
-    straightDrive(25);
+    straightDrive(27);
 
     delay(500);
 
@@ -705,16 +713,19 @@ void redLeft() {
     toggleIntakePiston();
     
 
-    delay(3300);
+    delay(3400);
 
-    pidturn(-15);
-    delay(300);    
+    pidturn(-17);
+    delay(10);
     fireFlywheel(4); // fire the three picked up
     
     delay(1000);
 
-    
+    F1.move(0);
     flywheel.remove();
+
+    
+    
 
 }
 void soloAwp() {
@@ -778,7 +789,7 @@ void skills() {
     pidturn(-63);
     straightDrive(31);
     pidturn(90);
-    delay(200);
+    delay(50);
 
     //toggle second roller
     straightDrive(-18);
@@ -795,17 +806,17 @@ void skills() {
 //Gerald was here
     //turn towards goal
     pidturn(0);
-    delay(100);
+    delay(10);
     straightDrive(45);
-    delay(200);
+    delay(10);
     straightDrive(48);
     delay(10);
 
     //face goal and fire first three shots
     pidturn(9);
-    delay(200);
+    delay(100);
     fireAutonFlywheel(4);
-    delay(400);
+    delay(100);
     moveIntake(127);	
 
     
@@ -816,19 +827,19 @@ void skills() {
 
     //drive and face towards line of three
     straightDrive(-72);
-    delay(200);
+    delay(300);
     pidturn(45);
-    delay(1000);
+    delay(150);
 
     //collect three discs (two bursts)
-    straightDrive(80);
-    delay(300);
+    straightDrive(90);
+    delay(200);
     pidturn(45);
-    delay(300);
-    straightDrive(21);
-    delay(500);
+    delay(200);
+    straightDrive(11);
+    delay(100);
     pidturn(45);
-    delay(1000);
+    
 
     chas_move(50,50);
 
@@ -842,13 +853,13 @@ void skills() {
     pidturn(-46);
     delay(100);
     fireFlywheel(4);
-    delay(200);
+    delay(100);
     
     setTarget(448);
 
     //turn towards three stack
     pidturn(44);
-    delay(300);
+    delay(100);
     moveIntake(127);
     toggleIntakePiston();
     delay(100);
@@ -886,7 +897,7 @@ void skills() {
     //align and collect three stack
     pidturn(90);
     delay(100);
-    straightDrive(42);
+    straightDrive(40);
     delay(250);
 
     toggleIntakePiston();
@@ -900,7 +911,7 @@ void skills() {
 
     //turn and move towards roller
     pidturn(180);
-    straightDrive(-37);
+    straightDrive(-36);
     delay(200);
     chas_move(-30,-30);
     delay(700);
@@ -910,24 +921,54 @@ void skills() {
     delay(650);
 
     //drive away from roller
-    straightDrive(25);
+    straightDrive(46);
 
     pidturn(270);
 
-    straightDrive(-35);
+    straightDrive(-45);
 
     chas_move(-30,-30);
-    delay(300);
+    delay(400);
     chas_move(0,0);
 
     //toggle roller
     delay(450);
 
-    straightDrive(3);
-//does a wheelie
-    pidturn(-235);
+    straightDrive(7);
 
+    pidturn(180);
+
+    straightDrive(45);
     delay(200);
+    straightDrive(40);
+    delay(10);
+
+    //face goal and fire first three shots
+    pidturn(189);
+    delay(100);
+    fireAutonFlywheel(4);
+    delay(100);
+    moveIntake(127);	
+
+    
+    pidturn(180);
+    setTarget(436);
+    
+    delay(300);
+
+    //drive and face towards line of three
+    straightDrive(-115);
+    delay(200);
+    pidturn(225);
+    delay(100);
+
+    expansion.set_value(true);
+
+    
+
+
+//does a wheelie
+    
 
 
 
