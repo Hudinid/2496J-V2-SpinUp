@@ -774,8 +774,6 @@ void skills() {
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
-    //AHHHHHH slay!
-    
     //Roller
     delay(100);
     moveIntake(127); // toggle roller
@@ -799,31 +797,28 @@ void skills() {
     delay(550);
     chas_move(0,0);
     delay(500);
-//delay(milliseconds: 10000000000000);
+
     chas_move(30,30);
     delay(350);
     chas_move(0,0);
-//Gerald was here
+
     //turn towards goal
     pidturn(0);
     delay(10);
-    straightDrive(45);
-    delay(10);
-    straightDrive(48);
+    straightDrive(93);
     delay(10);
 
     //face goal and fire first three shots
     pidturn(9);
-    delay(100);
+    delay(50);
     fireAutonFlywheel(4);
-    delay(100);
-    moveIntake(127);	
+    delay(50);
 
     
     pidturn(0);
     setTarget(436);
-    anglerPiston.set_value(false);
-    delay(300);
+    moveIntake(127);
+    delay(50);
 
     //drive and face towards line of three
     straightDrive(-72);
@@ -833,13 +828,10 @@ void skills() {
 
     //collect three discs (two bursts)
     straightDrive(90);
-    delay(200);
     pidturn(45);
-    delay(200);
-    straightDrive(11);
     delay(100);
-    pidturn(45);
-    
+    straightDrive(11);
+    pidturn(45);    
 
     chas_move(50,50);
 
@@ -853,61 +845,62 @@ void skills() {
     pidturn(-46);
     delay(100);
     fireFlywheel(4);
-    delay(100);
+    
     
     setTarget(448);
+    delay(10);
 
     //turn towards three stack
     pidturn(44);
     delay(100);
     moveIntake(127);
     toggleIntakePiston();
-    delay(100);
+    delay(50);
 // timmy was here
     //drive and collect three stack
     straightDrive(33);
-    delay(100);
+    delay(50);
     toggleIntakePiston();
     delay(1500);
     straightDrive(20);
-    delay(100);
+    delay(50);
 
     //align with and drive to goal
     pidturn(-90);
-    delay(100);
+    delay(50);
     straightDrive(32);
-    delay(100);
+    delay(50);
     pidturn(-72);
-    delay(100);
+    delay(50);
 
     //fire three discs (cycle 3)
     fireFlywheel(4);
+    delay(50);
     moveIntake(127);
-    delay(100);
+    
 
     toggleIntakePiston();
 
     //align with second three stack
-    delay(100);
     pidturn(125);
-    delay(100);
+    delay(50);
     straightDrive(16);
-    delay(100);
+    delay(50);
 
     //align and collect three stack
     pidturn(90);
-    delay(100);
+    delay(50);
     straightDrive(40);
-    delay(250);
+    delay(75);
 
     toggleIntakePiston();
-    delay(2000);
+    delay(2050);
 
     //align with roller
     chas_move(50,50);
     delay(200);
     chas_move(0,0);
-    delay(200);
+    delay(50);
 
     //turn and move towards roller
     pidturn(180);
@@ -938,29 +931,27 @@ void skills() {
 
     pidturn(180);
 
-    straightDrive(45);
-    delay(200);
-    straightDrive(40);
-    delay(10);
+    straightDrive(85);
+    delay(50);
 
     //face goal and fire first three shots
     pidturn(189);
-    delay(100);
+    delay(50);
     fireAutonFlywheel(4);
-    delay(100);
-    moveIntake(127);	
+    delay(50);
+    
 
     
     pidturn(180);
-    setTarget(436);
+    moveIntake(127);	
     
     delay(300);
 
-    //drive and face towards line of three
+    
     straightDrive(-115);
     delay(200);
     pidturn(225);
-    delay(100);
+    delay(200);
 
     expansion.set_value(true);
 
