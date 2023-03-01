@@ -71,8 +71,8 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	straightDrive(-50);
-	// skills();
+	
+	skills();
 	// redLeftGreed();
 	//redLeft();
 	// soloAwp();

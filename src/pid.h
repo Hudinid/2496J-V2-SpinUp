@@ -779,19 +779,19 @@ void skills() {
     moveIntake(127); // toggle roller
     chas_move(-30,-30);
     // spinToRed();
-    delay(350);
-    straightDrive(14);
+    delay(400);
+    straightDrive(13);
     moveIntake(127);
     
     //collect single disc
     pidturn(-63);
-    straightDrive(31);
+    straightDrive(33);
     pidturn(90);
     delay(50);
 
     //toggle second roller
     straightDrive(-18);
-    setTarget(427);
+    setTarget(423);
     
     chas_move(-30,-30);
     delay(550);
@@ -805,18 +805,18 @@ void skills() {
     //turn towards goal
     pidturn(0);
     delay(10);
-    straightDrive(93);
+    straightDrive(97);
     delay(10);
 
     //face goal and fire first three shots
-    pidturn(9);
+    pidturn(11);
     delay(50);
     fireAutonFlywheel(4);
     delay(50);
 
     
     pidturn(0);
-    setTarget(436);
+    setTarget(435);
     moveIntake(127);
     delay(50);
 
@@ -827,51 +827,45 @@ void skills() {
     delay(150);
 
     //collect three discs (two bursts)
-    straightDrive(90);
+    straightDrive(85);
+    delay(300);
     pidturn(45);
-    delay(100);
-    straightDrive(11);
-    pidturn(45);    
-
-    chas_move(50,50);
-
-    delay(200);
-
-    chas_move(0,0);
-
-
-
-    //face goal and fire cycle
-    pidturn(-46);
+    delay(300);
+    straightDrive(20);
+    delay(300);
+    
+    
+    
+    pidturn(-40);
     delay(100);
     fireFlywheel(4);
     
     
-    setTarget(448);
+    setTarget(440);
     delay(10);
 
     //turn towards three stack
-    pidturn(44);
+    pidturn(46);
     delay(100);
     moveIntake(127);
     toggleIntakePiston();
     delay(50);
 // timmy was here
     //drive and collect three stack
-    straightDrive(33);
+    straightDrive(43);
     delay(50);
     toggleIntakePiston();
     delay(1500);
-    straightDrive(20);
+    straightDrive(22);
     delay(50);
 
     //align with and drive to goal
     pidturn(-90);
     delay(50);
-    straightDrive(32);
+    straightDrive(34);
     delay(50);
-    pidturn(-72);
-    delay(50);
+    pidturn(-69);
+    delay(100);
 
     //fire three discs (cycle 3)
     fireFlywheel(4);
@@ -884,13 +878,13 @@ void skills() {
     //align with second three stack
     pidturn(125);
     delay(50);
-    straightDrive(16);
+    straightDrive(18);
     delay(50);
 
     //align and collect three stack
     pidturn(90);
     delay(50);
-    straightDrive(40);
+    straightDrive(42);
     delay(75);
 
     toggleIntakePiston();
@@ -904,7 +898,7 @@ void skills() {
 
     //turn and move towards roller
     pidturn(180);
-    straightDrive(-36);
+    straightDrive(-38);
     delay(200);
     chas_move(-30,-30);
     delay(700);
@@ -914,11 +908,11 @@ void skills() {
     delay(650);
 
     //drive away from roller
-    straightDrive(46);
+    straightDrive(48);
 
     pidturn(270);
 
-    straightDrive(-45);
+    straightDrive(-47);
 
     chas_move(-30,-30);
     delay(400);
@@ -927,11 +921,11 @@ void skills() {
     //toggle roller
     delay(450);
 
-    straightDrive(7);
+    straightDrive(9);
 
     pidturn(180);
 
-    straightDrive(85);
+    straightDrive(87);
     delay(50);
 
     //face goal and fire first three shots
@@ -945,7 +939,6 @@ void skills() {
     pidturn(180);
     moveIntake(127);	
     
-    delay(300);
 
     
     straightDrive(-115);
