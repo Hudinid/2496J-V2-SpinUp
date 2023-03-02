@@ -874,6 +874,7 @@ void skills() {
     
 
     toggleIntakePiston();
+    setTarget(590);
 
     //align with second three stack
     pidturn(125);
@@ -888,7 +889,7 @@ void skills() {
     delay(75);
 
     toggleIntakePiston();
-    delay(2050);
+    delay(2000);
 
     //align with roller
     chas_move(50,50);
@@ -923,25 +924,11 @@ void skills() {
 
     straightDrive(9);
 
-    pidturn(180);
-
-    straightDrive(87);
-    delay(50);
-
-    //face goal and fire first three shots
     pidturn(189);
-    delay(50);
-    fireAutonFlywheel(4);
-    delay(50);
-    
+
+    fireFlywheel(4);
 
     
-    pidturn(180);
-    moveIntake(127);	
-    
-
-    
-    straightDrive(-115);
     delay(200);
     pidturn(225);
     delay(200);
