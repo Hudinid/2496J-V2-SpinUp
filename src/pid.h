@@ -879,7 +879,7 @@ void skills() {
     //align with second three stack
     pidturn(125);
     delay(50);
-    straightDrive(15);
+    straightDrive(16);
     delay(50);
 
     //align and collect three stack
@@ -924,7 +924,7 @@ void skills() {
 
     straightDrive(9);
 
-    pidturn(187);
+    pidturn(185);
 
     fireFlywheel(4);
 
