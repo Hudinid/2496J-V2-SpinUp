@@ -437,9 +437,9 @@ void fireFlywheel(int rep) {
 void fireAutonFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(200);
+        delay(210);
         moveIntake(0);
-        delay(275);
+        delay(250);
         //timmy was here
     }
 
@@ -791,7 +791,7 @@ void skills() {
 
     //toggle second roller
     straightDrive(-18);
-    setTarget(423);
+    setTarget(415);
     
     chas_move(-30,-30);
     delay(550);
@@ -806,22 +806,22 @@ void skills() {
     pidturn(0);
     delay(10);
     straightDrive(97);
-    delay(10);
+    delay(50);
 
     //face goal and fire first three shots
-    pidturn(10);
-    delay(50);
+    pidturn(11);
+    delay(20);
     fireAutonFlywheel(4);
-    delay(50);
+    
 
     
     pidturn(0);
-    setTarget(435);
+    setTarget(428);
     moveIntake(127);
-    delay(50);
+    
 
     //drive and face towards line of three
-    straightDrive(-72);
+    straightDrive(-73);
     delay(300);
     pidturn(45);
     delay(150);
@@ -845,26 +845,23 @@ void skills() {
     
 
     //turn towards three stack
-    pidturn(46);
+    pidturn(44);
     delay(100);
     moveIntake(127);
     toggleIntakePiston();
     delay(50);
 // timmy was here
     //drive and collect three stack
-    straightDrive(44);
+    straightDrive(43);
     delay(100);
     toggleIntakePiston();
     delay(1500);
-    straightDrive(22);
+    straightDrive(10);
     delay(50);
 
     //align with and drive to goal
-    pidturn(-90);
-    delay(50);
-    straightDrive(34);
-    delay(50);
-    pidturn(-69);
+    
+    pidturn(-66);
     delay(100);
 
     //fire three discs (cycle 3)
@@ -874,33 +871,30 @@ void skills() {
     
 
     toggleIntakePiston();
-    setTarget(495);
+    setTarget(463);
 
     //align with second three stack
-    pidturn(125);
+    pidturn(75);
     delay(50);
-    straightDrive(16);
+    straightDrive(5);
     delay(50);
 
     //align and collect three stack
-    pidturn(90);
+    pidturn(88);
     delay(50);
-    straightDrive(42);
+    straightDrive(32);
     delay(75);
 
     toggleIntakePiston();
     delay(2000);
 
-    //align with roller
-    chas_move(50,50);
-    delay(200);
-    chas_move(0,0);
-    delay(50);
+    straightDrive(6);
 
     //turn and move towards roller
     pidturn(180);
-    straightDrive(-38);
-    delay(200);
+    straightDrive(-39);
+    delay(10);
+    pidturn(180);
     chas_move(-30,-30);
     delay(700);
     chas_move(0,0);
@@ -909,32 +903,36 @@ void skills() {
     delay(650);
 
     //drive away from roller
-    straightDrive(48);
+    straightDrive(54);
 
     pidturn(270);
 
-    straightDrive(-47);
+    straightDrive(-52);
+
+    pidturn(270);
 
     chas_move(-30,-30);
     delay(450);
     chas_move(0,0);
 
     //toggle roller
-    delay(450);
+    delay(500);
 
-    straightDrive(9);
+    straightDrive(11);
 
-    pidturn(185);
+    pidturn(186);
 
     fireFlywheel(4);
 
     pidturn(180);
 
-    straightDrive(-15);
+    straightDrive(-35);
 
     
-    delay(200);
+    
     pidturn(225);
+
+    delay(10);
     
 
     expansion.set_value(true);
