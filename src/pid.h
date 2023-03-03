@@ -812,6 +812,8 @@ void skills() {
     pidturn(11);
     delay(20);
     fireAutonFlywheel(4);
+
+    delay(100);
     
 
     
@@ -822,9 +824,9 @@ void skills() {
 
     //drive and face towards line of three
     straightDrive(-73);
-    delay(300);
+    delay(50);
     pidturn(45);
-    delay(150);
+    delay(50);
 
     //collect three discs (two bursts)
     straightDrive(85);
@@ -926,7 +928,7 @@ void skills() {
 
     pidturn(180);
 
-    straightDrive(-35);
+    straightDrive(-36);
 
     
     
