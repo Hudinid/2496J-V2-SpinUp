@@ -426,7 +426,7 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(200);
+        delay(210);
         moveIntake(0);
         delay(755);
         
@@ -438,7 +438,7 @@ void fireCloseFlywheel(int rep) {
         moveIntake(-127);
         delay(210);
         moveIntake(0);
-        delay(250);
+        delay(260);
     }
 
     moveIntake(0);
@@ -784,13 +784,16 @@ void skills() {
     
     //collect single disc
     pidturn(-63);
+    delay(50);
     straightDrive(33);
+    delay(50);
     pidturn(90);
+    delay(50);
     
 
     //toggle second roller
     straightDrive(-18);
-    setTarget(415);
+    setTarget(410);
     
     chas_move(-30,-30);
     delay(550);
@@ -799,16 +802,17 @@ void skills() {
 
     chas_move(30,30);
     delay(350);
-    chas_move(0,0);
+    chas_move(0,0);\
+    delay(50);
 
     //turn towards goal
     pidturn(0);
-    delay(10);
+    delay(100);
     straightDrive(97);
-    delay(50);
+    delay(100);
 
     //face goal and fire first three shots
-    pidturn(11);
+    pidturn(12);
     delay(20);
     fireCloseFlywheel(4);
 
@@ -822,13 +826,13 @@ void skills() {
     
 
     //drive and face towards line of three
-    straightDrive(-73);
-    delay(50);
+    straightDrive(-71);
+    delay(100);
     pidturn(45);
-    delay(50);
+    delay(75);
 
     //collect three discs (two bursts)
-    straightDrive(85);
+    straightDrive(87);
     delay(100);
 
     //correction
@@ -836,11 +840,11 @@ void skills() {
     delay(100);
     
     //second burst
-    straightDrive(20);   
+    straightDrive(18);   
     
     //orient
-    pidturn(-40);
-    delay(200);
+    pidturn(-41);
+    delay(300);
     fireFlywheel(4);
     
     
@@ -877,13 +881,8 @@ void skills() {
     setTarget(463);
 
     //align with second three stack
-    pidturn(75);
-    delay(50);
-    straightDrive(5);
-    delay(50);
-
-    //align and collect three stack
-    pidturn(88);
+    
+    pidturn(86);
     delay(50);
     straightDrive(32);
     delay(75);
@@ -923,22 +922,23 @@ void skills() {
 
     straightDrive(11);
 
-    pidturn(186);
+    pidturn(187);
 
     fireFlywheel(4);
 
     pidturn(180);
 
-    straightDrive(-36);
+    straightDrive(-40);
 
     
     
-    pidturn(225);
+    pidturn(230);
 
-    delay(10);
     
 
-    expansion.set_value(true);
+    toggleExpansion();
+
+    straightDrive(10);
 
     
 
