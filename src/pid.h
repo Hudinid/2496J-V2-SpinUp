@@ -428,19 +428,17 @@ void fireFlywheel(int rep) {
         moveIntake(-127);
         delay(200);
         moveIntake(0);
-        
         delay(755);
-        //timmy was here
+        
     }
 }
 
-void fireAutonFlywheel(int rep) {
+void fireCloseFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
         delay(210);
         moveIntake(0);
         delay(250);
-        //timmy was here
     }
 
     moveIntake(0);
@@ -770,6 +768,7 @@ void soloAwp() {
 
 
 void skills() {
+    
     setTarget(590);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
@@ -778,7 +777,7 @@ void skills() {
     delay(100);
     moveIntake(127); // toggle roller
     chas_move(-30,-30);
-    // spinToRed();
+    
     delay(400);
     straightDrive(13);
     moveIntake(127);
@@ -811,7 +810,7 @@ void skills() {
     //face goal and fire first three shots
     pidturn(11);
     delay(20);
-    fireAutonFlywheel(4);
+    fireCloseFlywheel(4);
 
     delay(100);
     
@@ -831,13 +830,15 @@ void skills() {
     //collect three discs (two bursts)
     straightDrive(85);
     delay(100);
+
+    //correction
     pidturn(45);
     delay(100);
-    straightDrive(20);
-
     
+    //second burst
+    straightDrive(20);   
     
-    
+    //orient
     pidturn(-40);
     delay(200);
     fireFlywheel(4);
