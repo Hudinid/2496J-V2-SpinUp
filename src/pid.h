@@ -426,9 +426,9 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(340);
+        delay(270);
         moveIntake(0);
-        delay(750);
+        delay(800);
         
     }
 }
@@ -437,7 +437,7 @@ void fireFlywheel2(int rep) {
     
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(365);
+        delay(500);
         moveIntake(0);
         delay(750);
         
@@ -726,7 +726,7 @@ void redLeft() {
     
     
 
-    setTarget(502);
+    setTarget(510);
 
     toggleIntakePiston(); // intake second half
     

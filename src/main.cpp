@@ -72,18 +72,18 @@ void competition_initialize() {
  */
 void autonomous() {
 	
-	skills();
+	//skills();
 	// redLeftGreed();
 	//redLeft();
 	// soloAwp();
 	//redLeft();
 	//redRight();
-	// setTarget(520);
-    // Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
-	// , TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+	setTarget(520);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
-	// delay(3000);
-	// fireFlywheel(2);
+	delay(3000);
+	fireFlywheel(3);
 }
 
 /**
