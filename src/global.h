@@ -24,6 +24,7 @@ namespace glb {
     #define P_ANGLERPISTON 'B'
     #define P_AUTONSELECTOR 'C'
     #define P_EXPANSION 'D'
+    #define P_SELECTOR 'H'
     
 
     Motor RF (P_RF, E_MOTOR_GEARSET_06);
@@ -50,6 +51,8 @@ namespace glb {
 
     Optical optical(P_OPTICAL);
     Optical optical2(P_OPTICAL2);
+
+    ADIDigitalIn button (P_SELECTOR);
     
 }
 #endif

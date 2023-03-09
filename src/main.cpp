@@ -37,17 +37,21 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+
+	imu.reset();
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
  * Management System or the VEX Competition Switch. This is intended for
  * competition-specific initialization routines, such as an autonomous selector
- * on the LCD.
+ * on the LCD.x`
  *
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
+int currAuton = 1;
 void competition_initialize() {
 	
 	imu.reset();
@@ -56,7 +60,58 @@ void competition_initialize() {
 	expansion.set_value(false);
 	intakePiston.set_value(true);
 	anglerPiston.set_value(false);
+	
+
+	bool selected = true;
+	int localTime = 0;
+	int totalAutons = 8;
 	con.clear();
+
+	while(true) {
+
+		if(button.get_value() == 0) {
+			if(selected) {
+				currAuton ++;
+				if(currAuton == totalAutons+1) {
+					currAuton = 1;
+				}
+				selected = false;
+			}
+			selected = false;
+		}
+		else selected = true;
+
+		if(localTime%50 == 0) {
+			// con.clear();
+			switch(currAuton) {
+				case (1):
+					con.print(0, 0, "Selected: %d Greed Right", currAuton);
+					break;
+				case(2):
+					con.print(0, 0, "Selected: %d Right", currAuton);
+					break;
+				case(3):
+					con.print(0, 0, "Selected: %d Greed Left", currAuton);
+					break;
+				case(4):
+					con.print(0, 0, "Selected: %d Left", currAuton);
+					break;
+				case(5):
+					con.print(0, 0, "Selected: %d Solo AWP", currAuton);
+					break;
+				case(6):
+					con.print(0, 0, "Selected: %d Skills", currAuton);
+					break;
+				case(7):
+					con.print(0, 0, "Selected: %d None", currAuton);
+					
+			}
+			// con.print(0, 0, "Selected: %d", currAuton);
+		}
+		localTime ++;
+	}
+
+	
 }
 
 /**
@@ -72,18 +127,41 @@ void competition_initialize() {
  */
 void autonomous() {
 	
-	//skills();
+	/*if(currAuton == 1) {
+		redRightGreed();
+	}
+	if(currAuton == 2) {
+		redRight();
+	}
+	if(currAuton == 3) {
+		redLeftGreed();
+	}
+	if(currAuton == 4) {
+		redLeft();
+	}
+	if(currAuton == 5) {
+		soloAwp();
+	}
+	if(currAuton == 6) {
+		skills();
+	}
+	if(currAuton == 7) {
+		
+	}*/
+	
+	
+	skills();
 	// redLeftGreed();
 	//redLeft();
 	// soloAwp();
 	//redLeft();
 	//redRight();
-	setTarget(520);
+	/*setTarget(520);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
 	delay(3000);
-	fireFlywheel(3);
+	fireCloseFlywheel(3);*/
 }
 
 /**
@@ -173,6 +251,7 @@ void opcontrol() {
 
 		int avgchastemp = (LF.get_temperature() + LM.get_temperature() + LB.get_temperature() + RF.get_temperature() + RM.get_temperature() + RB.get_temperature())/6;
 
+		
 		int flytemp = F1.get_temperature();
 
 		int intaketemp = INTAKE.get_temperature();
@@ -188,9 +267,7 @@ void opcontrol() {
 			//con.print(2, 0, "Intake temp: %f", INTAKE.get_temperature());
 		//}
 
-		if(count%65 == 0) { 
-			con.print(2, 0, "Chas temp: %f", avgchastemp);
-		}
+		
 
 		
 

@@ -426,9 +426,9 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(270);
+        delay(250);
         moveIntake(0);
-        delay(800);
+        delay(700);
         
     }
 }
@@ -472,9 +472,9 @@ void fireFlywheel3(int rep) {
 void fireCloseFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(365);
+        delay(280);
         moveIntake(0);
-        delay(260);
+        delay(300);
     }
 
     moveIntake(0);
@@ -882,7 +882,7 @@ void skills() {
     //orient
     pidturn(-40);
     delay(300);
-    fireCloseFlywheel(4);
+    fireFlywheel(4);
     
     
     setTarget(435);
@@ -909,7 +909,7 @@ void skills() {
     delay(100);
 
     //fire three discs (cycle 3)
-    fireFlywheel2(3);
+    fireFlywheel(3);
     delay(50);
     moveIntake(127);
     
@@ -962,7 +962,7 @@ void skills() {
 
     pidturn(188);
 
-    fireFlywheel2(4);
+    fireFlywheel(4);
 
     pidturn(180);
 
