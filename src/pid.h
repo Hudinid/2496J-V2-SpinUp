@@ -447,32 +447,20 @@ void fireFlywheel2(int rep) {
 }
 //skills
 void fireFlywheel3(int rep) {
-    moveIntake(-127);
-    delay(280);
-    moveIntake(0);
-    delay(775);
-    
-    moveIntake(-127);
-    delay(275);
-    moveIntake(0);
-    delay(775);
-    
-    moveIntake(-127);
-    delay(275);
-    moveIntake(0);
-    delay(775);
-    
-    moveIntake(-127);
-    delay(275);
-    moveIntake(0);
-    delay(775);
+    for(int i = 0; i < rep; i ++) {
+        moveIntake(-127);
+        delay(200);
+        moveIntake(0);
+        delay(825);
+        
+    }
 }
 
 //used to  be 210, 260
 void fireCloseFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(280);
+        delay(250);
         moveIntake(0);
         delay(300);
     }
@@ -694,7 +682,7 @@ void redLeftGreed() {
 
 void redLeft() {
     
-    setTarget(530);
+    setTarget(532);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
@@ -718,32 +706,33 @@ void redLeft() {
     
     pidturn(-8);
     delay(750); // turn and fire
-    fireFlywheel(2);//turns off flywheel
+    fireFlywheel(1);//turns off flywheel
+    moveIntake(-127);
+    delay(275);
+
     
     
-    delay(100);
     // setTarget(510);
     
     
 
-    setTarget(512);
+    setTarget(514);
 
     toggleIntakePiston(); // intake second half
     
     moveIntake(127); //timmy sin/cos <- fr fr (for realsies)
 
-    delay(100);
 
-    
+    delay(75);
 
-    pidturn(50);
+    pidturn(49);
 
     // chas_move(40, 40);
     straightDrive(28);
 
     delay(50);
     
-    pidturn(50);
+    pidturn(49);
 
     // chas_move(0, 0);
     toggleIntakePiston();
@@ -755,7 +744,7 @@ void redLeft() {
     delay(100);
     toggleIntakePiston();
     delay(50);
-    fireFlywheel2(4); // fire the three picked up
+    fireFlywheel2(5); // fire the three picked up
     
     flywheel.remove();
     flywheel.suspend();
@@ -844,8 +833,8 @@ void skills() {
     delay(500);
 
     chas_move(30,30);
-    delay(350);
-    chas_move(0,0);\
+    delay(365);
+    chas_move(0,0);
     delay(50);
 
     //turn towards goal
@@ -856,6 +845,8 @@ void skills() {
 
     //face goal and fire first three shots
     pidturn(12);
+    toggleIntakePiston();
+
     delay(20);
     fireCloseFlywheel(4);
 
@@ -866,6 +857,9 @@ void skills() {
     pidturn(0);
     setTarget(424);
     moveIntake(127);
+
+    toggleIntakePiston();
+
     
 
     //drive and face towards line of three
@@ -887,25 +881,30 @@ void skills() {
     
     //orient
     pidturn(-40);
-    delay(300);
-    fireFlywheel(4);
+    
+    delay(350);
+    toggleIntakePiston();
+
+    fireFlywheel2(4);
     
     
-    setTarget(435);
+    setTarget(445);
     
 
     //turn towards three stack
-    pidturn(46);
+    pidturn(42);
     delay(100);
     moveIntake(127);
-    toggleIntakePiston();
+    
     delay(50);
 // timmy was here
     //drive and collect three stack
-    straightDrive(43);
+    straightDrive(45);
+
     delay(100);
+    
     toggleIntakePiston();
-    delay(1500);
+    delay(1650);
     straightDrive(10);
     delay(50);
 
@@ -913,15 +912,16 @@ void skills() {
     
     pidturn(-65);
     delay(100);
+    toggleIntakePiston();
+
 
     //fire three discs (cycle 3)
-    fireFlywheel(3);
+    fireFlywheel2(3);
     delay(50);
     moveIntake(127);
     
 
-    toggleIntakePiston();
-    setTarget(463);
+    setTarget(485);
 
     //align with second three stack
     
@@ -953,22 +953,25 @@ void skills() {
 
     pidturn(270);
 
-    straightDrive(-49);
+    straightDrive(-44);
 
     pidturn(270);
 
     chas_move(-30,-30);
-    delay(450);
+    delay(350);
     chas_move(0,0);
 
     //toggle roller
-    delay(500);
+    delay(250);
 
     straightDrive(11);
 
     pidturn(188);
 
-    fireFlywheel(4);
+    toggleIntakePiston();
+
+
+    fireFlywheel2(4);
 
     pidturn(180);
 
@@ -982,7 +985,7 @@ void skills() {
 
     toggleExpansion();
 
-    straightDrive(10);
+    straightDrive(16);
 
     
 

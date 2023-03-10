@@ -126,7 +126,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	redLeft();
+	//redLeft();
 	// redRight();
 	/*if(currAuton == 1) {
 		redRightGreed();
@@ -151,7 +151,7 @@ void autonomous() {
 	}*/
 	
 	
-	//skills();
+	skills();
 	// redLeftGreed();
 	//redLeft();
 	// soloAwp();
