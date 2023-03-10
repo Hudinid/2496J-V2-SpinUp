@@ -426,9 +426,9 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(250);
+        delay(230);
         moveIntake(0);
-        delay(700);
+        delay(770);
         
     }
 }
@@ -437,9 +437,9 @@ void fireFlywheel2(int rep) {
     
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(500);
+        delay(200);
         moveIntake(0);
-        delay(750);
+        delay(825);
         
     }
         
@@ -597,17 +597,17 @@ void redRightGreed() {
 }
 
 void redRight() {
-    setTarget(505);
+    setTarget(510);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
     delay(100);
     
     moveIntake(127); // pick up and fire 3 discs
-    straightDrive(25);
+    straightDrive(28);
     delay(500);
-    pidturn(27);
-    delay(1000);
-    fireFlywheel2(4);
+    pidturn(26);
+    delay(1200);
+    fireFlywheel(4);
 
     pidturn(0); // back to starting position
     straightDrive(-20);
@@ -694,7 +694,7 @@ void redLeftGreed() {
 
 void redLeft() {
     
-    setTarget(515);
+    setTarget(525);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
@@ -717,7 +717,7 @@ void redLeft() {
     
     
     pidturn(-8);
-    delay(500); // turn and fire
+    delay(750); // turn and fire
     fireFlywheel(2);//turns off flywheel
     
     
@@ -726,7 +726,7 @@ void redLeft() {
     
     
 
-    setTarget(510);
+    setTarget(512);
 
     toggleIntakePiston(); // intake second half
     
@@ -739,25 +739,29 @@ void redLeft() {
     pidturn(50);
 
     // chas_move(40, 40);
-    straightDrive(26);
+    straightDrive(28);
 
-    delay(100);
+    delay(50);
     
+    pidturn(50);
 
     // chas_move(0, 0);
     toggleIntakePiston();
     
 
-    delay(3400);
+    delay(3400); 
 
-    pidturn(-15);
+    pidturn(-17);
     delay(100);
     fireFlywheel2(4); // fire the three picked up
     
-    delay(1000);
-
-    F1.move(0);
     flywheel.remove();
+    flywheel.suspend();
+    setTarget(0);
+    // delay(250);
+    // flywheel.suspend();
+    // setTarget(0);
+    // F1.move(0);
 
     
     

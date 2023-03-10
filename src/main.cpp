@@ -64,7 +64,7 @@ void competition_initialize() {
 
 	bool selected = true;
 	int localTime = 0;
-	int totalAutons = 8;
+	int totalAutons = 7;
 	con.clear();
 
 	while(true) {
@@ -126,7 +126,8 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	
+	redLeft();
+	// redRight();
 	/*if(currAuton == 1) {
 		redRightGreed();
 	}
@@ -150,7 +151,7 @@ void autonomous() {
 	}*/
 	
 	
-	skills();
+	//skills();
 	// redLeftGreed();
 	//redLeft();
 	// soloAwp();
@@ -180,6 +181,10 @@ void autonomous() {
 
  // USE TASKS FOR FLYWHEEL PID
 void opcontrol() {
+	Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+
+	flywheel.remove();
 	// int flySpeed = 420;
 	bool toggleFlyWheel = false;
 	bool hitFlyWheelToggle = false;
@@ -225,8 +230,10 @@ void opcontrol() {
 
 	list<int>::iterator it;
 	int indice = 0;
-	//setTarget(0);
-	F1.move(0);
+	// setTarget(0);
+	// F1.move(0);
+
+	con.clear();
 	
 	while (true) {
 
@@ -286,6 +293,7 @@ void opcontrol() {
 			
 		} 
 		else if(toggleFlyWheel) {
+			setTarget(target);
 			count2 ++;
 			if(count2 % 1000) {
 				con.rumble(".");
@@ -336,8 +344,10 @@ void opcontrol() {
 
 			delay(5);
 		}
-		else F1.move(0);
-
+		else {
+			setTarget(0);
+			F1.move(0);
+		}
 
 		if(con.get_digital(E_CONTROLLER_DIGITAL_R1)) { // then allow for manual control through R1 and R2
 			INTAKE.move(127);
@@ -369,6 +379,7 @@ void opcontrol() {
 				if(target > 600) {
 					target = 0;
 				}
+				setTarget(target);
 			}
 		}
 
@@ -379,6 +390,7 @@ void opcontrol() {
 				if(target < 0) { 
 				    target = 600;
 				}
+				setTarget(target);
 			}
 		}
 		else hitFlyWheelToggle = false;
@@ -387,13 +399,16 @@ void opcontrol() {
 		if(con.get_digital(E_CONTROLLER_DIGITAL_Y)) {
 			con.rumble(".");
 			target = 420;
+			setTarget(target);
 		}
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_X)) {
 			con.rumble(".");
 			target = 470;
+			setTarget(target);
 		}
 		else if(con.get_digital(E_CONTROLLER_DIGITAL_A)) {
 			F1.move(-600);
+			setTarget(target);
 		}
 		
 		
