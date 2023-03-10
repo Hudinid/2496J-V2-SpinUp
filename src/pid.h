@@ -426,9 +426,9 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(230);
+        delay(220);
         moveIntake(0);
-        delay(770);
+        delay(780);
         
     }
 }
@@ -694,7 +694,7 @@ void redLeftGreed() {
 
 void redLeft() {
     
-    setTarget(525);
+    setTarget(530);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
@@ -753,6 +753,8 @@ void redLeft() {
 
     pidturn(-17);
     delay(100);
+    toggleIntakePiston();
+    delay(50);
     fireFlywheel2(4); // fire the three picked up
     
     flywheel.remove();
