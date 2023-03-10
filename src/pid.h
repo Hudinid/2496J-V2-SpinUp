@@ -801,6 +801,7 @@ void soloAwp() {
 
 void skills() {
     
+    //initiate flywheel
     setTarget(590);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
@@ -809,7 +810,6 @@ void skills() {
     delay(100);
     moveIntake(127); // toggle roller
     chas_move(-30,-30);
-    
     delay(400);
     straightDrive(13);
     moveIntake(127);
@@ -825,6 +825,8 @@ void skills() {
 
     //toggle second roller
     straightDrive(-18);
+
+    //target for first cycle
     setTarget(405);
     
     chas_move(-30,-30);
@@ -839,28 +841,21 @@ void skills() {
 
     //turn towards goal
     pidturn(0);
-    
     straightDrive(97);
     delay(100);
 
     //face goal and fire first three shots
     pidturn(12);
-    toggleIntakePiston();
-
+    toggleIntakePiston(); //toggle piston during shot
     delay(20);
     fireCloseFlywheel(4);
 
-    
-    
-
-    
     pidturn(0);
+
+    //target for second cycle
     setTarget(424);
     moveIntake(127);
-
     toggleIntakePiston();
-
-    
 
     //drive and face towards line of three
     straightDrive(-72);
@@ -881,119 +876,109 @@ void skills() {
     
     //orient
     pidturn(-40);
-    
     delay(350);
-    toggleIntakePiston();
 
+    //shoot
+    toggleIntakePiston(); //toggle piston during shot
     fireFlywheel2(4);
+    delay(50);
     
-    
+    //target for cycle 3
     setTarget(445);
+    moveIntake(-127); //remove any uneeded discs
     
-
     //turn towards three stack
     pidturn(42);
     delay(100);
     moveIntake(127);
-    
     delay(50);
-// timmy was here
+
     //drive and collect three stack
     straightDrive(45);
-
     delay(100);
     
+    //collect discs
     toggleIntakePiston();
     delay(1650);
     straightDrive(10);
     delay(50);
 
-    //align with and drive to goal
-    
+    //align with goal    
     pidturn(-65);
     delay(100);
-    toggleIntakePiston();
-
+    toggleIntakePiston(); //toggle piston during shot
 
     //fire three discs (cycle 3)
     fireFlywheel2(3);
     delay(50);
     moveIntake(127);
     
-
+    //set target for last cycle (cycle 4)
     setTarget(485);
 
     //align with second three stack
-    
     pidturn(86);
     delay(50);
     straightDrive(32);
     delay(75);
 
+    //collect discs
     toggleIntakePiston();
     delay(2000);
 
-    
-
-    //turn and move towards roller
+    //align with roller
     straightDrive(15);
     pidturn(180);
+
+    //toggle roller
     straightDrive(-39);
     delay(10);
-    pidturn(180);
+    pidturn(180); //correction
     chas_move(-30,-30);
     delay(700);
     chas_move(0,0);
 
-    //toggle roller
+    //delay to spin roller
     delay(400);
 
     //drive away from roller
     straightDrive(52);
 
+    //orient with second roller
     pidturn(270);
 
+    //toggle second roller
     straightDrive(-44);
-
-    pidturn(270);
-
+    pidturn(270); //correction
     chas_move(-30,-30);
     delay(350);
     chas_move(0,0);
 
-    //toggle roller
+    //delay to spin roller
     delay(250);
 
+    //drive away from roller
     straightDrive(11);
 
+    //turn towards goal
     pidturn(188);
 
-    toggleIntakePiston();
-
-
+    //fire shots
+    toggleIntakePiston(); //toggle piston during shot
     fireFlywheel2(4);
 
+    //align up for expansion
     pidturn(180);
-
     straightDrive(-38);
-
-    
-    
     pidturn(230);
 
-    
-
+    //fire expansion
     toggleExpansion();
 
+    //align with four tiles
     straightDrive(16);
 
-    
-
-
-//does a wheelie
-    
-
-
+    //does a wheelie
 
 }
 
