@@ -85,7 +85,7 @@ void competition_initialize() {
 			// con.clear();
 			switch(currAuton) {
 				case (1):
-					con.print(0, 0, "Selected: %d Greed Right", currAuton);
+					con.print(0, 0, "Selected: %d Jeff Right", currAuton);
 					break;
 				case(2):
 					con.print(0, 0, "Selected: %d Right", currAuton);
@@ -126,10 +126,10 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	redRightJeff();
+	//redRightJeff();
 	// redRight();
 	/*if(currAuton == 1) {
-		redRightGreed();
+		redRightJeff();
 	}
 	if(currAuton == 2) {
 		redRight();
@@ -151,7 +151,7 @@ void autonomous() {
 	}*/
 	
 	
-	//skills();
+	skills();
 	// redLeftGreed();
 	//redLeft();
 	// soloAwp();

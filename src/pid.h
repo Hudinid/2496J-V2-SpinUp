@@ -872,7 +872,7 @@ void skills() {
     delay(500);
 
     chas_move(30,30);
-    delay(365);
+    delay(370);
     chas_move(0,0);
     delay(50);
 
@@ -882,7 +882,7 @@ void skills() {
     delay(100);
 
     //face goal and fire first three shots
-    pidturn(12);
+    pidturn(11);
     toggleIntakePiston(); //toggle piston during shot
     delay(20);
     fireCloseFlywheel(4);
@@ -925,7 +925,7 @@ void skills() {
     moveIntake(-127); //remove any uneeded discs
     
     //turn towards three stack
-    pidturn(42);
+    pidturn(43);
     delay(100);
     moveIntake(127);
     delay(50);
