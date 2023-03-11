@@ -426,9 +426,9 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(225);
+        delay(200);
         moveIntake(0);
-        delay(780);
+        delay(800);
         
     }
 }
@@ -618,6 +618,42 @@ void redRight() {
     flywheel.remove();
 }
 
+void redRightJeff() {
+    setTarget(525);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    straightDrive(25);
+    pidturn(-90);
+    moveIntake(127);
+    delay(50);
+
+    chas_move(-60, -60);
+    delay(450);
+    straightDrive(15);
+    pidturn(-76);
+    delay(250);
+    fireFlywheel(2);
+
+    setTarget(500);
+    pidturn(-135);
+    moveIntake(127);
+    delay(200);
+
+    // straightDrive(90);
+    chas_move(100, 100);
+    delay(1000);
+    // delay(50);
+    // pidturn(-135);
+    chas_move(0,0);
+    // straightDrive(50);
+    delay(800);
+    pidturn(-43);
+    toggleIntakePiston();
+
+    delay(500);
+    fireFlywheel(5);
+}
+
 void redLeftGreed() {
     setTarget(590);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
@@ -682,13 +718,13 @@ void redLeftGreed() {
 
 void redLeft() {
     
-    setTarget(532);
+    setTarget(528);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
     //AHHHHHH slay!
     
-    delay(100);
+    
     
     moveIntake(127); // toggle roller
     
@@ -699,28 +735,27 @@ void redLeft() {
     
     straightDrive(18);
 
-    delay(350);
+    delay(250);
     
     moveIntake(0);
     
     
-    pidturn(-7);
-    delay(750); // turn and fire
-    fireFlywheel(1);//turns off flywheel
-    moveIntake(-127);
-    delay(275);
+    pidturn(-8);
+    delay(800); // turn and fire
+    fireFlywheel(2);//turns off flywheel
+    
 
     
     
     // setTarget(510);
     
-    
+    // delay(100);
 
-    setTarget(514);
+    setTarget(509);
 
     toggleIntakePiston(); // intake second half
     
-    moveIntake(110); //timmy sin/cos <- fr fr (for realsies)
+    moveIntake(90); //timmy sin/cos <- fr fr (for realsies)
 
 
     delay(200);
@@ -732,8 +767,8 @@ void redLeft() {
 
     
     
-    pidturn(48);
-
+    // pidturn(48);
+    delay(50);
     
 
     // chas_move(0, 0);
@@ -742,11 +777,11 @@ void redLeft() {
 
     delay(3300); 
 
-    pidturn(-17);
+    pidturn(-18);
     delay(50);
     toggleIntakePiston();
    
-    fireFlywheel2(5); // fire the three picked up
+    fireFlywheel(5); // fire the three picked up
     
     flywheel.remove();
     flywheel.suspend();

@@ -39,7 +39,7 @@ void initialize() {
  */
 void disabled() {
 
-	imu.reset();
+	// imu.reset();
 }
 
 /**
@@ -126,7 +126,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	redLeft();
+	redRightJeff();
 	// redRight();
 	/*if(currAuton == 1) {
 		redRightGreed();
