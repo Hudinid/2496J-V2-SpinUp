@@ -426,7 +426,7 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(220);
+        delay(225);
         moveIntake(0);
         delay(780);
         
@@ -437,7 +437,7 @@ void fireFlywheel2(int rep) {
     
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(200);
+        delay(205);
         moveIntake(0);
         delay(825);
         
@@ -704,7 +704,7 @@ void redLeft() {
     moveIntake(0);
     
     
-    pidturn(-8);
+    pidturn(-7);
     delay(750); // turn and fire
     fireFlywheel(1);//turns off flywheel
     moveIntake(-127);
@@ -720,30 +720,32 @@ void redLeft() {
 
     toggleIntakePiston(); // intake second half
     
-    moveIntake(127); //timmy sin/cos <- fr fr (for realsies)
+    moveIntake(110); //timmy sin/cos <- fr fr (for realsies)
 
 
-    delay(75);
+    delay(200);
 
-    pidturn(49);
+    pidturn(48);
 
     // chas_move(40, 40);
-    straightDrive(28);
+    straightDrive(30);
 
-    delay(50);
     
-    pidturn(49);
+    
+    pidturn(48);
+
+    
 
     // chas_move(0, 0);
     toggleIntakePiston();
     
 
-    delay(3400); 
+    delay(3300); 
 
     pidturn(-17);
-    delay(100);
-    toggleIntakePiston();
     delay(50);
+    toggleIntakePiston();
+   
     fireFlywheel2(5); // fire the three picked up
     
     flywheel.remove();

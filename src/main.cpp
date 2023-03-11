@@ -126,7 +126,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-	//redLeft();
+	redLeft();
 	// redRight();
 	/*if(currAuton == 1) {
 		redRightGreed();
@@ -151,18 +151,19 @@ void autonomous() {
 	}*/
 	
 	
-	skills();
+	//skills();
 	// redLeftGreed();
 	//redLeft();
 	// soloAwp();
 	//redLeft();
 	//redRight();
-	/*setTarget(520);
+	/*setTarget(514);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
 	delay(3000);
-	fireCloseFlywheel(3);*/
+	toggleIntakePiston();
+	fireFlywheel2(3);*/
 }
 
 /**
