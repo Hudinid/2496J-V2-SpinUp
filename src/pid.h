@@ -619,7 +619,7 @@ void redRight() {
 }
 
 void redRightJeff() {
-    setTarget(525);
+    setTarget(520);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
     straightDrive(25);
@@ -627,27 +627,27 @@ void redRightJeff() {
     moveIntake(127);
     delay(50);
 
-    chas_move(-60, -60);
+    chas_move(-75, -75);
     delay(450);
     straightDrive(15);
-    pidturn(-76);
+    pidturn(-75);
     delay(250);
     fireFlywheel(2);
 
-    setTarget(500);
+    setTarget(492);
     pidturn(-135);
-    moveIntake(127);
+    moveIntake(110);
     delay(200);
 
     // straightDrive(90);
     chas_move(100, 100);
-    delay(1000);
+    delay(800);
     // delay(50);
     // pidturn(-135);
     chas_move(0,0);
     // straightDrive(50);
     delay(800);
-    pidturn(-43);
+    pidturn(-44);
     toggleIntakePiston();
 
     delay(500);
@@ -718,7 +718,7 @@ void redLeftGreed() {
 
 void redLeft() {
     
-    setTarget(528);
+    setTarget(522);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
@@ -751,7 +751,7 @@ void redLeft() {
     
     // delay(100);
 
-    setTarget(509);
+    setTarget(508);
 
     toggleIntakePiston(); // intake second half
     
@@ -760,7 +760,7 @@ void redLeft() {
 
     delay(200);
 
-    pidturn(48);
+    pidturn(49);
 
     // chas_move(40, 40);
     straightDrive(30);
@@ -902,7 +902,7 @@ void skills() {
 
     //collect three discs (two bursts)
     straightDrive(83);
-    delay(100);
+    delay(50);
 
     //correction
     pidturn(45);
@@ -913,7 +913,7 @@ void skills() {
     
     //orient
     pidturn(-40);
-    delay(350);
+    delay(300);
 
     //shoot
     toggleIntakePiston(); //toggle piston during shot
@@ -925,14 +925,14 @@ void skills() {
     moveIntake(-127); //remove any uneeded discs
     
     //turn towards three stack
-    pidturn(43);
+    pidturn(44);
     delay(100);
     moveIntake(127);
-    delay(50);
+    
 
     //drive and collect three stack
     straightDrive(45);
-    delay(100);
+    
     
     //collect discs
     toggleIntakePiston();
@@ -964,7 +964,9 @@ void skills() {
     delay(2000);
 
     //align with roller
+    moveIntake(-127);
     straightDrive(15);
+    moveIntake(127);
     pidturn(180);
 
     //toggle roller

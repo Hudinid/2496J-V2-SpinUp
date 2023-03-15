@@ -38,7 +38,8 @@ void initialize() {
  * the robot is enabled, this task will exit.
  */
 void disabled() {
-
+	setTarget(0);
+	F1.move(0);
 	// imu.reset();
 }
 
@@ -128,7 +129,7 @@ void competition_initialize() {
 void autonomous() {
 	//redRightJeff();
 	// redRight();
-	/*if(currAuton == 1) {
+	if(currAuton == 1) {
 		redRightJeff();
 	}
 	if(currAuton == 2) {
@@ -148,10 +149,10 @@ void autonomous() {
 	}
 	if(currAuton == 7) {
 		
-	}*/
+	}
 	
 	
-	skills();
+	// skills();
 	// redLeftGreed();
 	//redLeft();
 	// soloAwp();
