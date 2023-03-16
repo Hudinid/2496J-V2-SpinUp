@@ -129,7 +129,7 @@ void competition_initialize() {
 void autonomous() {
 	//redRightJeff();
 	// redRight();
-	if(currAuton == 1) {
+	/*if(currAuton == 1) {
 		redRightJeff();
 	}
 	if(currAuton == 2) {
@@ -149,9 +149,9 @@ void autonomous() {
 	}
 	if(currAuton == 7) {
 		
-	}
+	}*/
 	
-	
+	pidmove(70);
 	// skills();
 	// redLeftGreed();
 	//redLeft();

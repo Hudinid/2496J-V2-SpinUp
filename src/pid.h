@@ -34,11 +34,11 @@ bool intakeP = true;
 bool flywheelP = false;
 
 
-#define STRAIGHT_KP 6
-#define STRAIGHT_KI 1
-#define STRAIGHT_KD 1
-#define INTEGRAL_KI 5
-#define MAX_INTEGRAL 20
+#define STRAIGHT_KP 200
+#define STRAIGHT_KI 2
+#define STRAIGHT_KD 1700
+#define INTEGRAL_KI 0
+#define MAX_INTEGRAL 0
 #define COUNT_CONST 50
 #define TURN_KP 9.75 // 9.9 // 2
 #define TURN_KI 1 // 0.1 // 0.1
@@ -228,6 +228,7 @@ float calc(float target, float input, float maxI, int integralKI) {
 }
 
 void pidmove (int target) {
+    target = target * 28.5;
     setValues(STRAIGHT_KP,STRAIGHT_KI,STRAIGHT_KD);
     reset_encoders();
     int count = 0;
