@@ -301,12 +301,12 @@ void pidturn (float target){
         if (count >= COUNT_CONST) break; //|| runtime_count >= MAX_RUNTIME
 
         if (abs(target-position) <= 2) timeout++;
-        if(timeout >= MAXTIME) break;
+        if(timeout >= 20) break;
 
         if (runtime_count % 5 == 0 && !(runtime_count % 10 == 0)) {
             con.clear();
         } else if (runtime_count % 10 == 0) {
-            con.print(0,0,"Header: %f", imu.get_rotation());
+            con.print(2,0,"Header: %f", imu.get_rotation());
             
         }
         runtime_count++;
@@ -391,7 +391,7 @@ void straightDrive(int target) {
         if (count >= COUNT_CONST) break; //|| runtime_count >= MAX_RUNTIME
 
         if (abs(target-currentPos) <= 300) timeout++;
-        if(timeout >= MAXTIME) break;
+        if(timeout >= 300) break;
         newCount++;
         delay(10);
     }
@@ -427,9 +427,9 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(200);
+        delay(210);
         moveIntake(0);
-        delay(800);
+        delay(650);
         
     }
 }
@@ -438,9 +438,9 @@ void fireFlywheel2(int rep) {
     
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(205);
+        delay(210);
         moveIntake(0);
-        delay(825);
+        delay(400);
         
     }
         
@@ -548,6 +548,65 @@ void taskFlywheel() {
     tTarget = target;
     //hello
   }
+
+void redRightGreed2() {
+    setTarget(514);
+    moveIntake(127);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    straightDrive(25);
+    pidturn(-90);
+    
+    chas_move(-75, -75);
+    delay(425);
+    straightDrive(15);
+    delay(10);
+    pidturn(-73);
+    toggleIntakePiston();
+    fireFlywheel(2);
+    
+    setTarget(500);
+    moveIntake(127);
+    
+    
+    straightDrive(18);
+    toggleIntakePiston();
+    delay(1700);
+    moveIntake(0);
+    
+    pidturn(-73);
+    toggleIntakePiston();
+    fireFlywheel(3);
+    straightDrive(-14);
+
+    setTarget(492);
+    toggleIntakePiston();
+    pidturn(-135);
+    moveIntake(127);
+    
+
+    straightDrive(70);
+    //chas_move(100, 100);
+    //delay(800);
+    // delay(50);
+    // pidturn(-135);
+    //chas_move(0,0);
+    // straightDrive(50);
+    
+    pidturn(-53);
+    toggleIntakePiston();
+
+    
+    fireFlywheel2(5);
+
+
+
+
+
+
+
+
+}
 void redRightGreed() {
     setTarget(510);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT

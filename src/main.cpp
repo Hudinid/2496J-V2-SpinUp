@@ -63,7 +63,7 @@ void competition_initialize() {
 	anglerPiston.set_value(false);
 	
 
-	bool selected = true;
+	/*bool selected = true;
 	int localTime = 0;
 	int totalAutons = 7;
 	con.clear();
@@ -111,6 +111,7 @@ void competition_initialize() {
 		}
 		localTime ++;
 	}
+	*/
 
 	
 }
@@ -151,7 +152,7 @@ void autonomous() {
 		
 	}*/
 	
-	pidmove(70);
+	redRightGreed2();
 	// skills();
 	// redLeftGreed();
 	//redLeft();
@@ -186,7 +187,7 @@ void opcontrol() {
 	Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
-	flywheel.remove();
+	//flywheel.remove();
 	// int flySpeed = 420;
 	bool toggleFlyWheel = false;
 	bool hitFlyWheelToggle = false;
