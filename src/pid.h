@@ -558,7 +558,8 @@ void redRightGreed2() {
     pidturn(-90);
     
     chas_move(-75, -75);
-    delay(425);
+    delay(425); //this delay is too much - fix
+    pidturn(0);
     straightDrive(15);
     delay(10);
     pidturn(-73);
@@ -567,7 +568,6 @@ void redRightGreed2() {
     
     setTarget(500);
     moveIntake(127);
-    
     
     straightDrive(18);
     toggleIntakePiston();
@@ -585,14 +585,7 @@ void redRightGreed2() {
     moveIntake(127);
     
 
-    straightDrive(70);
-    //chas_move(100, 100);
-    //delay(800);
-    // delay(50);
-    // pidturn(-135);
-    //chas_move(0,0);
-    // straightDrive(50);
-    
+    straightDrive(70); // could change this to less distance based on intaking if needed
     pidturn(-53);
     toggleIntakePiston();
 
