@@ -153,6 +153,15 @@ void autonomous() {
 	}*/
 	
 	redRightGreed2();
+
+	/*setTarget(514);
+    
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+
+	delay(4000);
+	fireFlywheel(1);
+	fireFlywheel2(1);*/
 	// skills();
 	// redLeftGreed();
 	//redLeft();

@@ -424,12 +424,33 @@ void toggleExpansion() {
     expansion.set_value(true);
 }
 //new one #1 - used to  be delay(210) - 2 cycles
+//RIGHT GREED ONLY
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
-        moveIntake(-127);
-        delay(210);
-        moveIntake(0);
-        delay(650);
+        if ((i == 0 || i == 1) && rep == 1){
+            moveIntake(-127);
+            delay(235);
+            moveIntake(0);
+            delay(440);
+        }
+        else if ((i == 0 || i == 1)){
+            moveIntake(-127);
+            delay(240);
+            moveIntake(0);
+            delay(475);
+        }
+        else if(i==2){
+            moveIntake(-127);
+            delay(240);
+            moveIntake(0);
+            
+        }
+        else{
+            moveIntake(-127);
+            delay(215);
+            moveIntake(0);
+            delay(450);
+        }
         
     }
 }
@@ -438,9 +459,9 @@ void fireFlywheel2(int rep) {
     
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(210);
-        moveIntake(0);
-        delay(400);
+        delay(300);
+        
+        
         
     }
         
@@ -450,9 +471,9 @@ void fireFlywheel2(int rep) {
 void fireFlywheel3(int rep) {
     for(int i = 0; i < rep; i ++) {
         moveIntake(-127);
-        delay(200);
+        delay(240);
         moveIntake(0);
-        delay(825);
+        delay(300);
         
     }
 }
@@ -550,47 +571,55 @@ void taskFlywheel() {
   }
 
 void redRightGreed2() {
-    setTarget(514);
+    setTarget(517);
     moveIntake(127);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
-    straightDrive(25);
+    straightDrive(27);
     pidturn(-90);
     
     chas_move(-75, -75);
-    delay(425); //this delay is too much - fix
-    pidturn(0);
+    delay(350); //this delay is too much - fix
+
     straightDrive(15);
-    delay(10);
-    pidturn(-73);
+    delay(20);
+    pidturn(-72);
     toggleIntakePiston();
-    fireFlywheel(2);
+    fireFlywheel(1);
+    delay(10);
+    fireFlywheel2(1);
+    pidturn(-71);
+    
     
     setTarget(500);
-    moveIntake(127);
+    moveIntake(95);
     
-    straightDrive(18);
+    straightDrive(16);
     toggleIntakePiston();
-    delay(1700);
-    moveIntake(0);
+    delay(1825);
+    
     
     pidturn(-73);
     toggleIntakePiston();
     fireFlywheel(3);
     straightDrive(-14);
+    moveIntake(127);
 
-    setTarget(492);
+    setTarget(477);
     toggleIntakePiston();
     pidturn(-135);
-    moveIntake(127);
+    
     
 
-    straightDrive(70); // could change this to less distance based on intaking if needed
-    pidturn(-53);
+    chas_move(127,127);
+    delay(850);
+    chas_move(0,0);
+    // could change this to less distance based on intaking if needed
+    pidturn(-48);
     toggleIntakePiston();
 
     
-    fireFlywheel2(5);
+    fireFlywheel3(5);
 
 
 
