@@ -152,7 +152,7 @@ void autonomous() {
 		
 	}*/
 	
-	redRightGreed2();
+	redLeft();
 
 	/*setTarget(485);
     

@@ -471,10 +471,20 @@ void fireFlywheel2(int rep) {
 //skills
 void fireFlywheel3(int rep) {
     for(int i = 0; i < rep; i ++) {
-        moveIntake(-127);
-        delay(240);
-        moveIntake(0);
-        delay(300);
+        if (i == (rep - 1)){
+            moveIntake(-127);
+            delay(400);
+            moveIntake(0);
+        }
+        else{
+            moveIntake(-127);
+            delay(230);
+            moveIntake(0);
+            delay(600);
+        }
+        
+            
+        
         
     }
 }
@@ -572,7 +582,7 @@ void taskFlywheel() {
   }
 
 void redRightGreed2() {
-    setTarget(522);
+    setTarget(520);
     moveIntake(127);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
@@ -592,7 +602,7 @@ void redRightGreed2() {
     fireFlywheel2(2);
     moveIntake(-127);
     
-    pidturn(-71);
+    pidturn(-72);
     
     
     setTarget(513);
@@ -600,7 +610,7 @@ void redRightGreed2() {
     
     straightDrive(13);
     toggleIntakePiston();
-    delay(1840);
+    delay(1850);
     
     
     pidturn(-75);
@@ -611,7 +621,7 @@ void redRightGreed2() {
     straightDrive(-14);
     moveIntake(127);
 
-    setTarget(490);
+    setTarget(486);
     toggleIntakePiston();
     pidturn(-133);
     
@@ -809,7 +819,7 @@ void redLeftGreed() {
 
 void redLeft() {
     
-    setTarget(522);
+    setTarget(520);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
@@ -831,7 +841,7 @@ void redLeft() {
     moveIntake(0);
     
     
-    pidturn(-8);
+    pidturn(-9);
     delay(800); // turn and fire
     fireFlywheel(2);//turns off flywheel
     
@@ -846,19 +856,19 @@ void redLeft() {
 
     toggleIntakePiston(); // intake second half
     
-    moveIntake(90); //timmy sin/cos <- fr fr (for realsies)
+    moveIntake(95); //timmy sin/cos <- fr fr (for realsies)
 
 
     delay(200);
 
-    pidturn(49);
+    pidturn(48.5);
 
     // chas_move(40, 40);
-    straightDrive(30);
+    straightDrive(28);
 
     
     
-    // pidturn(48);
+    
     delay(50);
     
 
