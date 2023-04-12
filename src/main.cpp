@@ -89,7 +89,7 @@ void competition_initialize() {
 					con.print(0, 0, "Selected: %d Jeff Right", currAuton);
 					break;
 				case(2):
-					con.print(0, 0, "Selected: %d Right", currAuton);
+					con.print(0, 0, "Selected: %d Right Greed 2", currAuton);
 					break;
 				case(3):
 					con.print(0, 0, "Selected: %d Greed Left", currAuton);
@@ -134,7 +134,7 @@ void autonomous() {
 		redRightJeff();
 	}
 	if(currAuton == 2) {
-		redRight();
+		redRightGreed2();
 	}
 	if(currAuton == 3) {
 		redLeftGreed();
@@ -151,9 +151,11 @@ void autonomous() {
 	if(currAuton == 7) {
 		
 	}*/
+	//redRightGreed2();
+	
 	
 	redLeft();
-
+	
 	/*setTarget(485);
     
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT

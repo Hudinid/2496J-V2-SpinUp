@@ -582,36 +582,31 @@ void taskFlywheel() {
   }
 
 void redRightGreed2() {
+
     setTarget(520);
     moveIntake(127);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    
     straightDrive(27);
     pidturn(-90);
-    
     chas_move(-75, -75);
     delay(350); //this delay is too much - fix
-    
-    
-
     straightDrive(15);
     moveIntake(0);
     delay(5);
+
     pidturn(-73);
     toggleIntakePiston();
     fireFlywheel2(2);
     moveIntake(-127);
     
     pidturn(-72);
-    
-    
     setTarget(513);
     moveIntake(95);
-    
     straightDrive(13);
     toggleIntakePiston();
     delay(1850);
-    
     
     pidturn(-75);
     toggleIntakePiston();
@@ -620,34 +615,66 @@ void redRightGreed2() {
     
     straightDrive(-14);
     moveIntake(127);
-
     setTarget(486);
     toggleIntakePiston();
     pidturn(-133);
     
-    
-
     chas_move(127,127);
     delay(850);
     chas_move(0,0);
     delay(50);
     // could change this to less distance based on intaking if needed
+    
     pidturn(-48);
     delay(200);
     toggleIntakePiston();
-    
-
-    
     fireFlywheel2(2);
-
-
-
-
-
-
-
-
 }
+
+void redLeft() {
+    
+    setTarget(520);
+    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
+	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
+    
+    moveIntake(127); // toggle roller
+    chas_move(-30,-30);
+    delay(250);
+    
+    straightDrive(18);
+    delay(250);
+    moveIntake(0);
+    pidturn(-10);
+    delay(800); // turn and fire
+    fireFlywheel(2);
+
+    setTarget(505);
+    moveIntake(95); //timmy sin/cos <- fr fr (for realsies)
+    delay(200);
+    
+    pidturn(48);
+    toggleIntakePiston(); // intake second half
+    straightDrive(22);
+    delay(50);
+    
+    toggleIntakePiston();
+    delay(3300); 
+
+    pidturn(-16);
+    delay(50);
+    toggleIntakePiston();
+    fireFlywheel(5); // fire the three picked up
+    
+    /*flywheel.remove();
+    flywheel.suspend();
+    setTarget(0);
+    // delay(250);*/
+    // flywheel.suspend();
+    // setTarget(0);
+    // F1.move(0);
+}
+
+
 void redRightGreed() {
     setTarget(510);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
@@ -817,85 +844,7 @@ void redLeftGreed() {
 
 }
 
-void redLeft() {
-    
-    setTarget(520);
-    Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
-	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
-    //AHHHHHH slay!
-    
-    
-    
-    moveIntake(127); // toggle roller
-    
-    chas_move(-30,-30);
-
-    // spinToRed();
-    delay(250);
-    
-    straightDrive(18);
-
-    delay(250);
-    
-    moveIntake(0);
-    
-    
-    pidturn(-9);
-    delay(800); // turn and fire
-    fireFlywheel(2);//turns off flywheel
-    
-
-    
-    
-    // setTarget(510);
-    
-    // delay(100);
-
-    setTarget(508);
-
-    toggleIntakePiston(); // intake second half
-    
-    moveIntake(95); //timmy sin/cos <- fr fr (for realsies)
-
-
-    delay(200);
-
-    pidturn(48.5);
-
-    // chas_move(40, 40);
-    straightDrive(28);
-
-    
-    
-    
-    delay(50);
-    
-
-    // chas_move(0, 0);
-    toggleIntakePiston();
-    
-
-    delay(3300); 
-
-    pidturn(-18);
-    delay(50);
-    toggleIntakePiston();
-   
-    fireFlywheel(5); // fire the three picked up
-    
-    flywheel.remove();
-    flywheel.suspend();
-    setTarget(0);
-    // delay(250);
-    // flywheel.suspend();
-    // setTarget(0);
-    // F1.move(0);
-
-    
-    
-
-}
 void soloAwp() {
     
     setTarget(525);
