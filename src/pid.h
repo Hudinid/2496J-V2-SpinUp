@@ -429,13 +429,19 @@ void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         if (i == (rep - 1)){
             moveIntake(-127);
-            delay(270);
+            delay(350);
             moveIntake(0);
             delay(100);
         }
+        else if (i == (rep - 2)){
+            moveIntake(-127);
+            delay(220);
+            moveIntake(0);
+            delay(570);
+        }
         else{
             moveIntake(-127);
-            delay(215);
+            delay(220);
             moveIntake(0);
             delay(570);
         }
@@ -647,14 +653,16 @@ void redLeft() {
     pidturn(-10);
     delay(800); // turn and fire
     fireFlywheel(2);
+    moveIntake(-127);
 
     setTarget(505);
-    moveIntake(95); //timmy sin/cos <- fr fr (for realsies)
+    
     delay(200);
+    moveIntake(95); //timmy sin/cos <- fr fr (for realsies)
     
     pidturn(48);
     toggleIntakePiston(); // intake second half
-    straightDrive(22);
+    straightDrive(21);
     delay(50);
     
     toggleIntakePiston();

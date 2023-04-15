@@ -151,10 +151,10 @@ void autonomous() {
 	if(currAuton == 7) {
 		
 	}*/
-	//redRightGreed2();
+	redRightGreed2();
 	
 	
-	redLeft();
+	//redLeft();
 	
 	/*setTarget(485);
     
@@ -277,11 +277,11 @@ void opcontrol() {
 
 		int intaketemp = INTAKE.get_temperature();
 
-		if(count%50 == 0 && count % 100 != 0) {
-			con.print(0, 0, "Flywheel Speed: %d", target);
+		if(count%50 == 0) {
+			con.print(1, 0, "Flywheel Speed: %d", target);
 		}
 		if(count%75 == 0 && count % 100 != 0) {
-			con.print(1, 0, "F: %d, C %d, I %d", flytemp, avgchastemp, intaketemp);
+			con.print(2, 0, "F: %d, C %d, I %d", flytemp, avgchastemp, intaketemp);
 		}
 		
 		//if(count%75 == 0) { 
