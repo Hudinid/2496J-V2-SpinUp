@@ -156,12 +156,12 @@ void autonomous() {
 	
 	//redLeft();
 	
-	/*setTarget(485);
+	/*setTarget(518);
     
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
-	delay(6000);
+	delay(7000);
 	fireFlywheel(3);*/
 	
 	// skills();
