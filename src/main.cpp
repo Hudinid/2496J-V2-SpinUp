@@ -63,7 +63,7 @@ void competition_initialize() {
 	anglerPiston.set_value(false);
 	
 
-	/*bool selected = true;
+	bool selected = true;
 	int localTime = 0;
 	int totalAutons = 7;
 	con.clear();
@@ -89,7 +89,7 @@ void competition_initialize() {
 					con.print(0, 0, "Selected: %d Jeff Right", currAuton);
 					break;
 				case(2):
-					con.print(0, 0, "Selected: %d Right Greed 2", currAuton);
+					con.print(0, 0, "Selected: %d 2 Right Greed", currAuton);
 					break;
 				case(3):
 					con.print(0, 0, "Selected: %d Greed Left", currAuton);
@@ -111,7 +111,7 @@ void competition_initialize() {
 		}
 		localTime ++;
 	}
-	*/
+	
 
 	
 }
@@ -130,7 +130,7 @@ void competition_initialize() {
 void autonomous() {
 	//redRightJeff();
 	// redRight();
-	/*if(currAuton == 1) {
+	if(currAuton == 1) {
 		redRightJeff();
 	}
 	if(currAuton == 2) {
@@ -150,19 +150,19 @@ void autonomous() {
 	}
 	if(currAuton == 7) {
 		
-	}*/
-	redRightGreed2();
+	}
+	//redRightGreed2();
 	
 	
 	//redLeft();
 	
-	/*setTarget(518);
+	/*setTarget(534);
     
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
 
-	delay(7000);
-	fireFlywheel(3);*/
+	delay(6000);
+	fireFlywheel(2);*/
 	
 	// skills();
 	// redLeftGreed();

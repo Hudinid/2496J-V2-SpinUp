@@ -437,7 +437,7 @@ void fireFlywheel(int rep) {
             moveIntake(-127);
             delay(170);
             moveIntake(0);
-            delay(600);
+            delay(675);
         }
         else{
             moveIntake(-127);
@@ -484,7 +484,7 @@ void fireFlywheel3(int rep) {
     for(int i = 0; i < rep; i ++) {
         if (i == (rep - 1)){
             moveIntake(-127);
-            delay(200);
+            delay(400);
 
             moveIntake(0);
             delay(150);
@@ -497,7 +497,7 @@ void fireFlywheel3(int rep) {
         }
         else{
             moveIntake(-127);
-            delay(155);
+            delay(170);
             moveIntake(0);
             delay(500);
         }
@@ -602,7 +602,7 @@ void taskFlywheel() {
 
 void redRightGreed2() {
     
-    setTarget(526);
+    setTarget(527);
     moveIntake(127);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
@@ -625,9 +625,9 @@ void redRightGreed2() {
     pidturn(-72);
     setTarget(530);
     moveIntake(95);
-    straightDrive(14);
+    straightDrive(13);
     toggleIntakePiston();
-    delay(1930);
+    delay(1950);
     
     pidturn(-76);
     toggleIntakePiston();
@@ -637,7 +637,7 @@ void redRightGreed2() {
         
     straightDrive(-14);
     moveIntake(127);
-    setTarget(486);
+    setTarget(490);
     toggleIntakePiston();
     pidturn(-133);
     
@@ -647,8 +647,8 @@ void redRightGreed2() {
     delay(50);
     // could change this to less distance based on intaking if needed
     
-    pidturn(-48);
-    delay(100);
+    pidturn(-47);
+    delay(200);
     toggleIntakePiston();
     fireFlywheel3(3);
 }
@@ -671,7 +671,7 @@ void redLeft() {
     fireFlywheel(2);
     moveIntake(-127);
 
-    setTarget(505);
+    setTarget(510);
     
     delay(200);
     moveIntake(95); //timmy sin/cos <- fr fr (for realsies)
@@ -687,7 +687,7 @@ void redLeft() {
     pidturn(-16);
     delay(50);
     toggleIntakePiston();
-    fireFlywheel(5); // fire the three picked up
+    fireFlywheel2(3); // fire the three picked up
     
     /*flywheel.remove();
     flywheel.suspend();
@@ -709,8 +709,10 @@ void redRightGreed() {
     straightDrive(28);
     delay(100);
     pidturn(28);
+    //pidturn(target: pi/4);
     delay(575);
     fireFlywheel(3);
+    //fireFlywheel2(rep:314)
 
     setTarget(495);
     pidturn(90);
