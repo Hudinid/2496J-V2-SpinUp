@@ -429,21 +429,19 @@ void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         if (i == (rep - 1)){
             moveIntake(-127);
-            delay(200);
+            delay(650);
             moveIntake(0);
             delay(150);
         }
         else if (i == (rep - 2)){
             moveIntake(-127);
-            delay(170);
+            delay(250);
             moveIntake(0);
             delay(675);
         }
         else{
-            moveIntake(-127);
-            delay(155);
-            moveIntake(0);
-            delay(600);
+            moveIntake(127);
+            delay(2000);
         }
         
             
@@ -457,21 +455,21 @@ void fireFlywheel2(int rep) {
     for(int i = 0; i < rep; i ++) {
         if (i == (rep - 1)){
             moveIntake(-127);
-            delay(180);
+            delay(130);
             moveIntake(0);
             delay(250);
             con.print(1, 0, "Flywheel Speed: %d", F1.get_actual_velocity());
         }
         else if (i == (rep - 2)){
             moveIntake(-127);
-            delay(170);
+            delay(130);
             moveIntake(0);
             delay(550);
             con.print(1, 0, "Flywheel Speed: %d", F1.get_actual_velocity());
         }
         else{
             moveIntake(-127);
-            delay(160);
+            delay(120);
             moveIntake(0);
             delay(550);
         }
@@ -483,21 +481,24 @@ void fireFlywheel2(int rep) {
 void fireFlywheel3(int rep) {
     for(int i = 0; i < rep; i ++) {
         if (i == (rep - 1)){
+            //rep 2/2
             moveIntake(-127);
-            delay(400);
+            delay(140);
 
             moveIntake(0);
             delay(150);
         }
         else if (i == (rep - 2)){
+            //rep 1/2
             moveIntake(-127);
-            delay(170);
+            delay(150);
             moveIntake(0);
             delay(500);
         }
         else{
+            //doesnt matter
             moveIntake(-127);
-            delay(170);
+            delay(200);
             moveIntake(0);
             delay(500);
         }
@@ -602,7 +603,7 @@ void taskFlywheel() {
 
 void redRightGreed2() {
     
-    setTarget(527);
+    setTarget(532);
     moveIntake(127);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
@@ -616,28 +617,28 @@ void redRightGreed2() {
     moveIntake(0);
     delay(5);
 
-    pidturn(-74);
+    pidturn(-75);
     con.print(1, 0, "Flywheel Speed: %d", F1.get_actual_velocity());
     toggleIntakePiston();
-    fireFlywheel(2);
+    fireFlywheel3(2);
     moveIntake(-127);
     
     pidturn(-72);
-    setTarget(530);
-    moveIntake(95);
+    setTarget(522);
+    moveIntake(100);
     straightDrive(13);
     toggleIntakePiston();
     delay(1950);
     
-    pidturn(-76);
+    pidturn(-77);
     toggleIntakePiston();
     
     fireFlywheel2(3);
     moveIntake(-127);
-        
+    delay(200);
     straightDrive(-14);
     moveIntake(127);
-    setTarget(490);
+    setTarget(508);
     toggleIntakePiston();
     pidturn(-133);
     
@@ -647,10 +648,11 @@ void redRightGreed2() {
     delay(50);
     // could change this to less distance based on intaking if needed
     
-    pidturn(-47);
-    delay(200);
+    pidturn(-49);
+    delay(240);
     toggleIntakePiston();
-    fireFlywheel3(3);
+    fireFlywheel3(2);
+    moveIntake(-127);
 }
 
 void redLeft() {
@@ -688,6 +690,7 @@ void redLeft() {
     delay(50);
     toggleIntakePiston();
     fireFlywheel2(3); // fire the three picked up
+    fireFlywheel2(3);
     
     /*flywheel.remove();
     flywheel.suspend();
