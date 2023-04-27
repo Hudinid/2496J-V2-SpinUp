@@ -428,20 +428,26 @@ void toggleExpansion() {
 void fireFlywheel(int rep) {
     for(int i = 0; i < rep; i ++) {
         if (i == (rep - 1)){
+            //rep 2/2
             moveIntake(-127);
-            delay(650);
+            delay(140);
+
             moveIntake(0);
             delay(150);
         }
         else if (i == (rep - 2)){
+            //rep 1/2
             moveIntake(-127);
-            delay(250);
+            delay(135);
             moveIntake(0);
-            delay(675);
+            delay(600);
         }
         else{
-            moveIntake(127);
-            delay(2000);
+            //doesnt matter
+            moveIntake(-127);
+            delay(200);
+            moveIntake(0);
+            delay(500);
         }
         
             
@@ -464,14 +470,14 @@ void fireFlywheel2(int rep) {
             moveIntake(-127);
             delay(130);
             moveIntake(0);
-            delay(550);
+            delay(850);
             con.print(1, 0, "Flywheel Speed: %d", F1.get_actual_velocity());
         }
         else{
             moveIntake(-127);
             delay(120);
             moveIntake(0);
-            delay(550);
+            delay(850);
         }
     }
         
@@ -493,7 +499,7 @@ void fireFlywheel3(int rep) {
             moveIntake(-127);
             delay(150);
             moveIntake(0);
-            delay(500);
+            delay(800);
         }
         else{
             //doesnt matter
@@ -510,15 +516,29 @@ void fireFlywheel3(int rep) {
 }
 
 //used to  be 210, 260
-void fireCloseFlywheel(int rep) {
+void fireFlywheel4(int rep) {
     for(int i = 0; i < rep; i ++) {
-        moveIntake(-127);
-        delay(250);
-        moveIntake(0);
-        delay(300);
+        if (i == (rep - 1)){
+            moveIntake(-127);
+            delay(130);
+            moveIntake(0);
+            delay(250);
+            con.print(1, 0, "Flywheel Speed: %d", F1.get_actual_velocity());
+        }
+        else if (i == (rep - 2)){
+            moveIntake(-127);
+            delay(140);
+            moveIntake(0);
+            delay(600);
+            con.print(1, 0, "Flywheel Speed: %d", F1.get_actual_velocity());
+        }
+        else{
+            moveIntake(-127);
+            delay(150);
+            moveIntake(0);
+            delay(700);
+        }
     }
-
-    moveIntake(0);
 }
 
 
@@ -608,7 +628,7 @@ void redRightGreed2() {
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
     
-    straightDrive(27);
+    straightDrive(29);
     pidturn(-88);
     chas_move(-75, -75);
     delay(320); //this delay is too much - fix
@@ -617,20 +637,20 @@ void redRightGreed2() {
     moveIntake(0);
     delay(5);
 
-    pidturn(-75);
+    pidturn(-77);
     con.print(1, 0, "Flywheel Speed: %d", F1.get_actual_velocity());
     toggleIntakePiston();
     fireFlywheel3(2);
     moveIntake(-127);
     
-    pidturn(-72);
-    setTarget(522);
+    pidturn(-75);
+    setTarget(530);
     moveIntake(100);
     straightDrive(13);
     toggleIntakePiston();
     delay(1950);
     
-    pidturn(-77);
+    pidturn(-79);
     toggleIntakePiston();
     
     fireFlywheel2(3);
@@ -638,7 +658,7 @@ void redRightGreed2() {
     delay(200);
     straightDrive(-14);
     moveIntake(127);
-    setTarget(508);
+    setTarget(503);
     toggleIntakePiston();
     pidturn(-133);
     
@@ -648,8 +668,8 @@ void redRightGreed2() {
     delay(50);
     // could change this to less distance based on intaking if needed
     
-    pidturn(-49);
-    delay(240);
+    pidturn(-50);
+    delay(150);
     toggleIntakePiston();
     fireFlywheel3(2);
     moveIntake(-127);
@@ -657,40 +677,52 @@ void redRightGreed2() {
 
 void redLeft() {
     
-    setTarget(520);
+    setTarget(523);
     Task flywheel(taskFlywheel, TASK_PRIORITY_DEFAULT
 	, TASK_STACK_DEPTH_DEFAULT, "flywheelTask");
     
     moveIntake(127); // toggle roller
     chas_move(-30,-30);
+    
     delay(250);
+    toggleIntakePiston();
+    
+    
     
     straightDrive(18);
-    delay(250);
     moveIntake(0);
-    pidturn(-10);
+    delay(250);
+    
+    pidturn(-13);
     delay(800); // turn and fire
-    fireFlywheel(2);
+    fireFlywheel3(2);
     moveIntake(-127);
 
-    setTarget(510);
+    setTarget(509);
     
     delay(200);
-    moveIntake(95); //timmy sin/cos <- fr fr (for realsies)
+    moveIntake(90); //timmy sin/cos <- fr fr (for realsies)
     
-    pidturn(48);
-    toggleIntakePiston(); // intake second half
-    straightDrive(21);
-    delay(50);
+    pidturn(53);
+    
+    straightDrive(25);
+    
+
+    
     
     toggleIntakePiston();
-    delay(3300); 
+    delay(3500);
 
-    pidturn(-16);
+    straightDrive(-2);
+    straightDrive(2);
+
+    
+
+    pidturn(-18);
     delay(50);
     toggleIntakePiston();
     fireFlywheel2(3); // fire the three picked up
-    fireFlywheel2(3);
+    fireFlywheel4(3);
     
     /*flywheel.remove();
     flywheel.suspend();
@@ -964,7 +996,7 @@ void skills() {
     pidturn(11);
     toggleIntakePiston(); //toggle piston during shot
     delay(20);
-    fireCloseFlywheel(4);
+    fireFlywheel4(4);
 
     pidturn(0);
 
